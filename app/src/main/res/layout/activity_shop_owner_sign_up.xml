@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="40dp"
+    tools:context=".Shopowner.ShopOwnerSignUp">
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:id="@+id/nameEdt"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/monsterregular"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:id="@+id/emailEdt"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/monsterregular"
+        />
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Phone"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:inputType="phone"
+    android:id="@+id/phoneEdt" android:textSize="20dp"
+    android:layout_margin="10dp"
+    android:fontFamily="@font/monsterregular"
+    />
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Shop Name"
+    android:id="@+id/shopnameEdt"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:textSize="20dp"
+    android:layout_margin="10dp"
+    android:fontFamily="@font/monsterregular"
+    />
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Address"
+       android:maxLines="1"
+        android:inputType="textPersonName"
+    android:id="@+id/addEdt"
+        android:textSize="20dp"
+    android:layout_margin="10dp"
+    android:fontFamily="@font/monsterregular"
+    />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:id="@+id/passEdt"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/monsterregular"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="PROCEED"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:padding="10dp"
+        app:cornerRadius="10dp"
+        android:elevation="30dp"
+        android:translationZ="30dp"
+        android:fontFamily="@font/monsterregular"
+        />
+
+</LinearLayout>

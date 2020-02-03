@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+   android:background="#fff"
+    android:layout_height="match_parent"
+    tools:context=".PreSignup.SelectUser">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="146dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <TextView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:elevation="25dp"
+        android:fontFamily="@font/raleway"
+        android:padding="15dp"
+        android:text="Let us know who you are ."
+        android:textColor="#000"
+        android:textSize="48dp"
+        android:translationZ="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shopOwnerImg"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:translationZ="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/shop" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/monsterregular"
+        android:text="Shop Owner"
+        android:textColor="#474545"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/shopOwnerImg"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/shopOwnerImg"
+        app:layout_constraintTop_toBottomOf="@+id/shopOwnerImg" />
+
+    <ImageView
+        android:id="@+id/customerImg"
+        style="@style/BaseAppTheme"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/custome"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/monsterregular"
+
+        android:text="Customer"
+        android:textColor="#474545"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/customerImg"
+        app:layout_constraintStart_toStartOf="@+id/customerImg"
+        app:layout_constraintTop_toBottomOf="@+id/customerImg" />
+
+    <ImageView
+        android:id="@+id/staffImg"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="44dp"
+        android:foreground="?android:attr/selectableItemBackground"
+
+        android:src="@drawable/ic_staff"
+        app:layout_constraintEnd_toEndOf="@+id/customerImg"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/customerImg"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/monsterregular"
+        android:text="Staff"
+
+        android:textColor="#474545"
+        android:textSize="25dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/staffImg"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="@+id/staffImg"
+        app:layout_constraintTop_toBottomOf="@+id/staffImg"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
