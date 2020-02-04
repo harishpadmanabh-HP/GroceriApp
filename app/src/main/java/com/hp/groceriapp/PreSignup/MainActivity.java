@@ -1,45 +1,44 @@
 package com.hp.groceriapp.PreSignup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
 import com.hp.groceriapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView imageView;
+    private TextView head;
+    private MaterialButton proceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        imageView=(ImageView)findViewById(R.id.img);
-        Animation an2= AnimationUtils.loadAnimation(this,R.anim.slide);
-        imageView.startAnimation(an2);
-        Thread background = new Thread() {
-            public void run() {
-                try {
-                    // Thread will sleep for 5 seconds
-                    sleep(2*1000);
+        setContentView(R.layout.splashsapre);
+        initView();
 
-                    // After 5 seconds redirect to another intent
-                    Intent i=new Intent(getBaseContext(),SelectUser.class);
-                    startActivity(i);
+        Animation an2 = AnimationUtils.loadAnimation(this, R.anim.slide);
+        head.startAnimation(an2);
 
-                    //Remove activity
-                    finish();
-                } catch (Exception e) {
-                    Log.e("Splash", String.valueOf(e));
-                }
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,SelectUser.class));
             }
-        };
-        // start thread
-        background.start();
+        });
+
+    }
+
+    private void initView() {
+        head = (TextView) findViewById(R.id.head);
+        proceed = (MaterialButton) findViewById(R.id.proceed);
     }
 }

@@ -3,6 +3,7 @@ package com.hp.groceriapp.Retro;
 
 
 import com.hp.groceriapp.Shopowner.Model.Login_model;
+import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
 
 import retrofit2.Call;
@@ -22,4 +23,8 @@ public interface Apis {
                                  @Query("shop_name")String shop_name,
                                  @Query("building_address")String building_address,
                                  @Query("password")String password);
-   }
+
+   @GET("view_product.php?")
+   Call<ProductlistModel> PRODUCTLIST_MODEL_CALL(@Query("adminid") String id);
+
+}

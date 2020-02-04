@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:translationZ="40dp"
+    android:background="@drawable/product_list_curve"
+    android:layout_margin="12dp"
+    android:padding="15dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/productimageview"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product name"
+        android:textSize="25dp"
+        android:fontFamily="@font/monsterbold"
+        android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:id="@+id/product_name"
+        android:elevation="10dp"
+        android:translationZ="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Brand"
+        android:textSize="20dp"
+        android:fontFamily="@font/monsterregular"
+        android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:id="@+id/product_brand"
+        android:elevation="10dp"
+        android:translationZ="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Price"
+        android:textSize="20dp"
+        android:fontFamily="@font/monsterregular"
+        android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:id="@+id/product_price"
+        android:elevation="10dp"
+        android:translationZ="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Quantity"
+        android:textSize="20dp"
+        android:fontFamily="@font/monsterregular"
+        android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:id="@+id/product_quantity"
+        android:elevation="10dp"
+        android:translationZ="10dp"
+        android:layout_marginBottom="20dp"
+        />
+
+
+</LinearLayout>

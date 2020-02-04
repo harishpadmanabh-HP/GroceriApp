@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shrine"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Shopowner.HomeDrawer"></activity>
+        <activity android:name=".Shopowner.HomeDrawer">
+
+        </activity>
         <activity android:name=".Customer.CustomerSignup" />
         <activity android:name=".Shopowner.ShopOwnerSignUp" />
         <activity

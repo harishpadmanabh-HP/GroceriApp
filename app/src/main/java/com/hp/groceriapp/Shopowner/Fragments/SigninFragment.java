@@ -19,6 +19,8 @@ import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.HomeDrawer;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +54,7 @@ public class SigninFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root= inflater.inflate(R.layout.fragment_signin, container, false);
+        appPreferences = AppPreferences.getInstance(getActivity(), getResources().getString(R.string.app_name));
 
   initView(root);
 
@@ -62,7 +65,6 @@ public class SigninFragment extends Fragment {
            dataphone=emailEdt.getText().toString();
            datapass=passwordEditText.getText().toString();
 
-          appPreferences = AppPreferences.getInstance(getContext(), getResources().getString(R.string.app_name));
 
           if(dataphone.equals("")&&datapass.equals("")){
               Toast.makeText(getContext(), "Fill necessary details", Toast.LENGTH_SHORT).show();
@@ -75,34 +77,31 @@ public class SigninFragment extends Fragment {
               public void onResponse(Call<Login_model> call, Response<Login_model> response) {
                   login_model=response.body();
 
-                if( login_model.getStatus().equals("Success")) {
+                if( Objects.requireNonNull(login_model).getStatus().equals("Success")) {
                     Toast.makeText(getContext(), login_model.getStatus(), Toast.LENGTH_SHORT).show();
-                  dataphone= login_model.getUser_data().getPhone();
-                  datapass=login_model.getUser_data().getPassword();
-                  String dataid=login_model.getUser_data().getId();
 
-                  appPreferences.saveData("id",dataid);
-                  appPreferences.saveData("phone",dataphone);
-                  appPreferences.saveData("pass",datapass);
+                  //save data in app preferences
+                  appPreferences.saveData("adminid",login_model.getUser_data().getId());
+                  appPreferences.saveData("adminphone",login_model.getUser_data().getPhone());
+                  appPreferences.saveData("adminpass",login_model.getUser_data().getPassword());
+                  appPreferences.saveData("adminemail",login_model.getUser_data().getEmail());
+                  appPreferences.saveData("adminshopname",login_model.getUser_data().getShop_name());
+                  appPreferences.saveData("adminadd",login_model.getUser_data().getBuilding_address());
 
 
-//                    appPreferences.getData("id", null);
-//                    appPreferences.getData("ph", null);
-//                    appPreferences.getData("password", null);
-//
-
-                    startActivity(new Intent(getContext(), HomeDrawer.class));
+//start hopme page
+                  startActivity(new Intent(getContext(), HomeDrawer.class));
 
                 }
               //}
-                else {
+                else {//login status false
                     Toast.makeText(getContext(), login_model.getStatus(), Toast.LENGTH_SHORT).show();
                 }
               }
 
               @Override
               public void onFailure(Call<Login_model> call, Throwable t) {
-                  Toast.makeText(getContext(),""+t, Toast.LENGTH_SHORT).show();
+                  Toast.makeText(getContext(),"Login api failure"+t, Toast.LENGTH_SHORT).show();
               }
           });
 
