@@ -70,7 +70,9 @@ public class SignupFragment extends Fragment {
                 } else {
 
                     Retro retro = new Retro();
-                    retro.getApi().REG_MODEL_CALL().enqueue(new Callback<Reg_model>() {
+                    retro.getApi().REG_MODEL_CALL(nameEdt.getText().toString(),
+                            emailEdt.getText().toString(),
+                            phoneEdt.getText().toString(),shopnameEdt.getText().toString(),addEdt.getText().toString(),passEdt.getText().toString()).enqueue(new Callback<Reg_model>() {
                         @Override
                         public void onResponse(Call<Reg_model> call, Response<Reg_model> response) {
                             reg_model=response.body();
