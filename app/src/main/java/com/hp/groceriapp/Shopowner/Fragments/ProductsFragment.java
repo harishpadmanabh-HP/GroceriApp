@@ -2,9 +2,13 @@ package com.hp.groceriapp.Shopowner.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
+
+
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +20,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.Adapters.Admin_Productlist_Adapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
+import com.hp.groceriapp.Utils.FragmentSwitcher;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +39,7 @@ public class ProductsFragment extends Fragment {
     ImageView noitemImg;
     private AppPreferences appPreferences;
     ProductlistModel productlistModel;
+    ExtendedFloatingActionButton addProductFab;
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -82,6 +89,14 @@ public class ProductsFragment extends Fragment {
             }
         });
 
+        addProductFab.setOnClickListener(view -> {
+        //   new FragmentSwitcher().replaceFragment(new AddProductFragment());
+
+            FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+            t.replace(R.id.frameLayout, new AddProductFragment());
+            t.commit();
+        } );
+
 
 
 
@@ -92,6 +107,7 @@ public class ProductsFragment extends Fragment {
 
         productsRV=root.findViewById(R.id.productsRV);
         noitemImg=root.findViewById(R.id.noitemsImg);
+        addProductFab=root.findViewById(R.id.addproductFAB);
 
     }
 

@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.harishpadmanabh.apppreferences.AppPreferences;
+import com.hp.groceriapp.Adapters.TabAdapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
@@ -58,6 +61,7 @@ public class SignupFragment extends Fragment {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View v=view;
                 String inputname = nameEdt.getText().toString();
                 String inputemail = emailEdt.getText().toString();
                 String inputphone = phoneEdt.getText().toString();
@@ -76,7 +80,16 @@ public class SignupFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Reg_model> call, Response<Reg_model> response) {
                             reg_model=response.body();
-                            Toast.makeText(getContext(), reg_model.getStatus(), Toast.LENGTH_SHORT).show();
+
+                            if(reg_model.getStatus().equalsIgnoreCase("success"))
+                            {
+                                Snackbar.make(v,"Registered successfully.Sign in to continue", BaseTransientBottomBar.LENGTH_LONG).show();
+                            }else
+                            {
+                                Snackbar.make(v,reg_model.getStatus(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                            }
+
 
                         }
 

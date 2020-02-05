@@ -21,7 +21,8 @@
         <activity android:name=".Shopowner.ShopOwnerSignUp" />
         <activity
             android:name=".PreSignup.SelectUser"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent"/>
         <activity
             android:name=".PreSignup.MainActivity"
             android:screenOrientation="portrait">
