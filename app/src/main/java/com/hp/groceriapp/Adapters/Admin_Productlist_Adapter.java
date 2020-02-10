@@ -35,7 +35,7 @@ public class Admin_Productlist_Adapter extends RecyclerView.Adapter<Admin_Produc
     @Override
     public void onBindViewHolder(@NonNull ProductsVH holder, int position) {
 
-        Glide.with(context).load(productlistModel.getProduct_Details().get(position).getPhoto()).into(holder.dp);
+        Glide.with(context).load(productlistModel.getProduct_Details().get(position).getPhoto()).placeholder(R.drawable.noitem).into(holder.dp);
         holder.pName.setText(productlistModel.getProduct_Details().get(position).getProduct_name());
         holder.pBrand.setText( "Brand : "+productlistModel.getProduct_Details().get(position).getBrand());
         holder.pPrice.setText(productlistModel.getProduct_Details().get(position).getPrice()+" Rs");

@@ -2,12 +2,17 @@ package com.hp.groceriapp.Retro;
 
 
 
+import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Apis {
@@ -27,4 +32,16 @@ public interface Apis {
    @GET("view_product.php?")
    Call<ProductlistModel> PRODUCTLIST_MODEL_CALL(@Query("adminid") String id);
 
+
+
+   @Multipart
+   @POST("add_product.php")
+   Call<AddproductModel> ADDPRODUCT_MODEL_CALL(
+                                               @Part("product_name") String product_name,
+                                               @Part("quantity") String quantity,
+                                               @Part("brand") String brand,
+                                               @Part("price") String price,
+                                               @Part("rack_no") String rack_no,
+                                               @Part("id") String id,
+                                               @Part MultipartBody.Part file);
 }

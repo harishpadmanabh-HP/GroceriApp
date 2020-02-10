@@ -4,14 +4,16 @@
     android:translationZ="40dp"
     android:background="@drawable/product_list_curve"
     android:layout_margin="12dp"
-    android:padding="15dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
+        android:background="@drawable/product_list_curve"
+
         android:id="@+id/productimageview"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
          />
 
     <TextView
@@ -23,6 +25,7 @@
         android:textColor="#000"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:id="@+id/product_name"
         android:elevation="10dp"
         android:translationZ="10dp"
@@ -35,6 +38,8 @@
         android:fontFamily="@font/monsterregular"
         android:textColor="#000"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+
         android:layout_marginLeft="12dp"
         android:id="@+id/product_brand"
         android:elevation="10dp"
@@ -47,6 +52,8 @@
         android:textSize="20dp"
         android:fontFamily="@font/monsterregular"
         android:textColor="#000"
+        android:layout_marginRight="12dp"
+
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
         android:id="@+id/product_price"
@@ -62,6 +69,8 @@
         android:textColor="#000"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+
         android:id="@+id/product_quantity"
         android:elevation="10dp"
         android:translationZ="10dp"

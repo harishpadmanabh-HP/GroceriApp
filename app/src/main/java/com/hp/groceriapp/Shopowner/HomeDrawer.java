@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Shopowner.Fragments.ProductsFragment;
 import com.hp.groceriapp.Shopowner.Fragments.StaffsFragment;
+import com.hp.groceriapp.Utils.IOnBackPressed;
 import com.shrikanthravi.customnavigationdrawer2.data.MenuItem;
 import com.shrikanthravi.customnavigationdrawer2.widget.SNavigationDrawer;
 
@@ -114,5 +115,11 @@ public class HomeDrawer extends AppCompatActivity {
         });
 
 
+    }
+    @Override public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            super.onBackPressed();
+        }
     }
 }

@@ -58,6 +58,12 @@ public class SigninFragment extends Fragment {
 
   initView(root);
 
+
+  //......DUMMY CREDENTIALS
+        emailEdt.setText("7012069385");
+        passwordEditText.setText("qwerty");
+  //..............................   DUMMY CREDENTIALS.......................
+
   nextButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
