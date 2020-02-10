@@ -85,6 +85,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private String pictureFilePath;
     private File imgFile;
+    private boolean isPhototaken;
 
     public AddProductFragment() {
         // Required empty public constructor
@@ -103,7 +104,10 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
 
         initView(root);
 
-        mAddProductbtn.setVisibility(View.GONE);
+        if(isPhototaken)
+        mAddProductbtn.setVisibility(View.VISIBLE);
+        else mAddProductbtn.setVisibility(View.GONE);
+
 
         //....DUMMY CREDENTIALS
 
@@ -127,6 +131,8 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
             }
         });
         mAddProductbtn.setOnClickListener(view -> {
+
+            //get file to upload
             File file = imgFile;
 
             if(imgFile == null ||
@@ -144,7 +150,6 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
                if(file.exists())
                     {
 
-                        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
 
                         MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
@@ -263,6 +268,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
             if(imgFile.exists())
             {
                 //Setting up Ui Buttons
+                isPhototaken=true;
                 mAddProductbtn.setVisibility(View.VISIBLE);
                 mAddphotoBtn.setVisibility(View.GONE);
                 mAddphotoBtn.setEnabled(false);
