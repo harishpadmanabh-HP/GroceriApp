@@ -6,6 +6,7 @@ import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
+import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -44,4 +45,6 @@ public interface Apis {
                                                @Part("rack_no") String rack_no,
                                                @Part("id") String id,
                                                @Part MultipartBody.Part file);
+   @GET("staff_view.php?")
+   Call<StaffsListModel>STAFFS_LIST_MODEL_CALL(@Query("id") String id);
 }

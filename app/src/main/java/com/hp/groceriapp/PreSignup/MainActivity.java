@@ -42,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startActivity(new Intent(MainActivity.this,SelectUser.class));
-            presentActivity(view);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                            presentActivity(view);
+                        }else
+                        {
+                            startActivity(new Intent(MainActivity.this,SelectUser.class));
+                        }
+
+
             }
         });
 

@@ -7,5 +7,6 @@
     <color name="toolbarIconColor">@color/textColorPrimary</color>
     <color name="loginPageBackgroundColor">#FFFFFF</color>
     <color name="productGridBackgroundColor">#FFFFFF</color>
+    <color name="customerthemeBG">#4D1709</color>
 
 </resources>

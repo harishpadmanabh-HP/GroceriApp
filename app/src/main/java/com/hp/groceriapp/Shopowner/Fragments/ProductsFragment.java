@@ -1,15 +1,10 @@
 package com.hp.groceriapp.Shopowner.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
-
-
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -26,7 +21,6 @@ import com.hp.groceriapp.Adapters.Admin_Productlist_Adapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
-import com.hp.groceriapp.Utils.FragmentSwitcher;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,7 +101,7 @@ public class ProductsFragment extends Fragment {
 
         productsRV=root.findViewById(R.id.productsRV);
         noitemImg=root.findViewById(R.id.noitemsImg);
-        addProductFab=root.findViewById(R.id.addproductFAB);
+        addProductFab=root.findViewById(R.id.addstaffFAB);
 
     }
 

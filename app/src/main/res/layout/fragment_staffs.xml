@@ -2,15 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-   android:background="@color/colorPrimaryDark"
+   android:background="#fff"
     android:layout_height="match_parent"
     tools:context=".Shopowner.Fragments.StaffsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:textColor="#fff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Staffs" />
-
+    <include layout="@layout/staffs_page"/>
 </FrameLayout>
