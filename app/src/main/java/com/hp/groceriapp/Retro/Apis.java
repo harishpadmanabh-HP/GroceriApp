@@ -2,6 +2,7 @@ package com.hp.groceriapp.Retro;
 
 
 
+import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
@@ -9,6 +10,7 @@ import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -47,4 +49,13 @@ public interface Apis {
                                                @Part MultipartBody.Part file);
    @GET("staff_view.php?")
    Call<StaffsListModel>STAFFS_LIST_MODEL_CALL(@Query("id") String id);
+
+   @Multipart
+   @POST("add_staff.php")
+   Call<AddStaffModel>ADD_STAFF_MODEL_CALL(@Part("emp_id")RequestBody emp_id,
+                                           @Part("phone")RequestBody phone,
+                                           @Part("name")RequestBody name,
+                                           @Part("pin")RequestBody pin,
+                                           @Part("id")RequestBody id,
+                                           @Part MultipartBody.Part file);
 }

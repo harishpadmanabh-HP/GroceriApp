@@ -21,6 +21,7 @@ import com.hp.groceriapp.Adapters.Admin_Productlist_Adapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
+import com.hp.groceriapp.Utils.FragmentSwitcher;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,11 +85,9 @@ public class ProductsFragment extends Fragment {
         });
 
         addProductFab.setOnClickListener(view -> {
-        //   new FragmentSwitcher().replaceFragment(new AddProductFragment());
+            new FragmentSwitcher().replaceFragment(new AddProductFragment(),getActivity());
 
-            FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
-            t.replace(R.id.frameLayout, new AddProductFragment());
-            t.commit();
+
         } );
 
 
