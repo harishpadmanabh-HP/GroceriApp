@@ -2,11 +2,16 @@ package com.hp.groceriapp.Retro;
 
 
 
+import com.hp.groceriapp.Customer.CustomerModels.Cust_LoginModel;
+import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
+import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
+import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
+import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 
 import okhttp3.MultipartBody;
@@ -58,4 +63,28 @@ public interface Apis {
                                            @Part("pin")RequestBody pin,
                                            @Part("id")RequestBody id,
                                            @Part MultipartBody.Part file);
+
+   @GET("customer_login.php?")
+   Call<Cust_LoginModel> CUST_LOGIN_MODEL_CALL(@Query("phone") String phone,
+                                               @Query("password") String password);
+
+   @GET("customer_registration.php?")
+   Call<Cust_SignupModel>CUST_SIGNUP_MODEL_CALL(@Query("name") String name,
+                                                @Query("email") String email,
+                                                @Query("phone") String phone,
+                                                @Query("password") String password);
+
+
+   @GET("customer_view.php?")
+   Call<Cust_ViewModel>CUST_VIEW_MODEL_CALL(@Query("id") String customerid);
+
+   @GET("view_staff.php?")
+   Call<Shp_ViewStaffModel>SHP_VIEW_STAFF_MODEL_CALL(@Query("id") String adminid,
+                                                     @Query("staff_id") String staff_id);
+
+   @GET("view_single_product.php?")
+   Call<Shp_SingleProductModel>SHP_SINGLE_PRODUCT_MODEL_CALL(@Query("adminid") String adminid,
+                                                             @Query("product_id") String product_id);
+
+
 }

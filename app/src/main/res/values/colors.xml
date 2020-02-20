@@ -8,5 +8,6 @@
     <color name="loginPageBackgroundColor">#FFFFFF</color>
     <color name="productGridBackgroundColor">#FFFFFF</color>
     <color name="customerthemeBG">#4D1709</color>
+    <color name="customeryellow">#EACC20</color>
 
 </resources>

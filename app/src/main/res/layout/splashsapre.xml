@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="#2B100A"
+    android:id="@+id/llRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#2B100A"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
@@ -44,14 +46,14 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/proceed"
-        android:layout_width="336dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="@font/monsterbold"
         android:text="Go  Groceri  it !"
         android:textSize="20dp"
-        app:cornerRadius="12dp"
-        android:fontFamily="@font/monsterbold"
         android:translationZ="30dp"
-        android:backgroundTint="@color/colorAccent"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

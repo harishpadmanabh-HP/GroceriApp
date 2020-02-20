@@ -11,6 +11,6 @@ public class CustomerSignup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signupspare);
+        setContentView(R.layout.activity_customer_signup2);
     }
 }

@@ -1,10 +1,13 @@
 package com.hp.groceriapp.PreSignup;
 
+import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -42,15 +45,43 @@ public class MainActivity extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                            presentActivity(view);
-                        }else
-                        {
-                            startActivity(new Intent(MainActivity.this,SelectUser.class));
-                        }
+
+//                proceed.setText("");
+//                proceed.setBackgroundResource(R.drawable.btnround);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    ((ViewGroup) findViewById(R.id.llRoot)).getLayoutTransition()
+                            .enableTransitionType(LayoutTransition.CHANGING);
+
+                }
+//
+//                final Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Do something after 5s = 5000ms
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+//                            presentActivity(view);
+//                            finish();
+//                        } else {
+//                            startActivity(new Intent(MainActivity.this, SelectUser.class));
+//
+//                            finish();
+//                        }
+//                    }
+//                }, 1000);
 
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    presentActivity(view);
+                    //finish();
+                } else {
+                    startActivity(new Intent(MainActivity.this, SelectUser.class));
+
+                    //finish();
+                }
             }
+
         });
 
     }
@@ -72,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
     }
+
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -92,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
+
     // Shows the system bars by removing all the flags
     // except for the ones that make the content appear under the system bars.
     private void showSystemUI() {
@@ -101,18 +134,18 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-                       //Full screen hiding system ui
-                       hideSystemUI();
-                   }else
-                   {
-                       showSystemUI();
-                   }
+                //Full screen hiding system ui
+                hideSystemUI();
+            } else {
+                showSystemUI();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.harishpadmanabh.apppreferences.AppPreferences;
-import com.hp.groceriapp.Customer.CustomerSignup;
+import com.hp.groceriapp.Customer.CustomerLogin;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Shopowner.ShopOwnerSignUp;
 
@@ -84,7 +84,7 @@ public class SelectUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appPreferences.saveData("usercategory","customer");
-                startActivity(new Intent(SelectUser.this, CustomerSignup.class));
+                startActivity(new Intent(SelectUser.this, CustomerLogin.class));
 
             }
         });

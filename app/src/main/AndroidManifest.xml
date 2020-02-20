@@ -22,9 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shrine"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Staff.OnboardActivity"></activity>
-        <activity android:name=".Shopowner.HomeDrawer"></activity>
-        <activity android:name=".Customer.CustomerSignup" />
+        <activity android:name=".Customer.CustomerSignup"></activity>
+        <activity android:name=".Staff.OnboardActivity" />
+        <activity android:name=".Shopowner.HomeDrawer" />
+        <activity android:name=".Customer.CustomerLogin" />
         <activity android:name=".Shopowner.ShopOwnerSignUp" />
         <activity
             android:name=".PreSignup.SelectUser"

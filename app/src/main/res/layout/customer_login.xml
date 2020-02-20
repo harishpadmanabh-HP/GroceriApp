@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:alpha=".45"
+        android:id="@+id/imageView3"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/groceri" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/monsterregular"
+
+        android:text="LOGIN"
+        android:textColor="#fff"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.477" />
+
+    <EditText
+        android:id="@+id/customer_phn"
+        android:layout_width="272dp"
+        android:layout_height="60dp"
+        android:background="@drawable/edtbg"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/customeryellow"
+        android:elevation="20dp"
+        android:ems="10"
+        android:fontFamily="@font/monsterregular"
+        android:hint="Phone"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textSize="20dp"
+        android:translationZ="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <EditText
+        android:id="@+id/customer_pass"
+        android:layout_width="272dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:padding="10dp"
+        android:background="@drawable/edtbg"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:drawablePadding="12dp"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:fontFamily="@font/monsterregular"
+        android:textColorHint="#fff"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:drawableTint="@color/customeryellow"
+        app:layout_constraintEnd_toEndOf="@+id/customer_phn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/customer_phn"
+        app:layout_constraintTop_toBottomOf="@+id/customer_phn" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/proceed"
+        android:layout_width="272dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/customeryellow"
+        android:fontFamily="@font/monsterregular"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textSize="22dp"
+        android:translationZ="30dp"
+        app:cornerRadius="30dp"
+        android:textColor="#000"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="@+id/customer_pass"
+        app:layout_constraintTop_toBottomOf="@+id/customer_pass" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.36886394" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/customer_signupBTN"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New to Groceri App ? Sign up here !"
+        android:textColor="#fff"
+
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8499353" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

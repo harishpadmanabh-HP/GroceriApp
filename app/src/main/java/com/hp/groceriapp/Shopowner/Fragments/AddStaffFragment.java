@@ -41,6 +41,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -70,6 +71,7 @@ public class AddStaffFragment extends Fragment implements IOnBackPressed {
     private AddStaffModel addStaffModel;
 
     private String pictureFilePath;
+    MultipartBody.Part filePart;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -86,7 +88,7 @@ public class AddStaffFragment extends Fragment implements IOnBackPressed {
         initView(root);
         AppPreferences appPreferences = AppPreferences.getInstance(getActivity(), getResources().getString(R.string.app_name));
 
-
+        isPhototaken=false;
 
         staffdp.setOnClickListener(view -> {
             selectImage();
@@ -94,54 +96,54 @@ public class AddStaffFragment extends Fragment implements IOnBackPressed {
 
 
         addStaff.setOnClickListener(view -> {
-           if(imgFile != null ||
-             ! staffname.getText().toString().equals("") ||
-                  ! staffempid.getText().toString().equals("") ||
-                  ! staffphone.getText().toString().equals("") ||
-                   !staffpin.getText().toString().equals("")) {
+            Log.e("PHOTO TAKEN", String.valueOf(isPhototaken));
+            if (!isPhototaken ||
+                    !staffname.getText().toString().equals("") ||
+                    !staffempid.getText().toString().equals("") ||
+                    !staffphone.getText().toString().equals("") ||
+                    !staffpin.getText().toString().equals("")) {
+                Log.e("PHOTO TAKEN inside", String.valueOf(isPhototaken));
 
-               RequestBody snameBody =   RequestBody.create(MediaType.parse("text/plain"), staffname.getText().toString());
-               RequestBody sempidBody =   RequestBody.create(MediaType.parse("text/plain"), staffempid.getText().toString());
-               RequestBody sphoneBody =   RequestBody.create(MediaType.parse("text/plain"), staffphone.getText().toString());
-               RequestBody spinBody =   RequestBody.create(MediaType.parse("text/plain"), staffpin.getText().toString());
-               RequestBody sidBody =   RequestBody.create(MediaType.parse("text/plain"), appPreferences.getData("adminid"));
+                RequestBody snameBody = RequestBody.create(MediaType.parse("text/plain"), staffname.getText().toString());
+                RequestBody sempidBody = RequestBody.create(MediaType.parse("text/plain"), staffempid.getText().toString());
+                RequestBody sphoneBody = RequestBody.create(MediaType.parse("text/plain"), staffphone.getText().toString());
+                RequestBody spinBody = RequestBody.create(MediaType.parse("text/plain"), staffpin.getText().toString());
+                RequestBody sidBody = RequestBody.create(MediaType.parse("text/plain"), appPreferences.getData("adminid"));
 
+                try {
+                    filePart = MultipartBody.Part.createFormData("avatar", imgFile.getName(), RequestBody.create(MediaType.parse("image/*"), imgFile));
 
-               MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", imgFile.getName(), RequestBody.create(MediaType.parse("image/*"), imgFile));
-               new Retro().getApi().ADD_STAFF_MODEL_CALL(sempidBody,
-                       sphoneBody,snameBody,spinBody,sidBody,filePart).enqueue(new Callback<AddStaffModel>() {
-                   @Override
-                   public void onResponse(Call<AddStaffModel> call, Response<AddStaffModel> response) {
-                       addStaffModel=response.body();
-                       if(addStaffModel.getStatus().equalsIgnoreCase("success"))
-                       {
-                           Snackbar.make(root,"Staff Added Sucessfully", BaseTransientBottomBar.LENGTH_LONG).show();
-                       }else
-                       {
-                           Snackbar.make(root,"Something went wrong. Try Again Later", BaseTransientBottomBar.LENGTH_LONG).show();
+                }catch (Exception e)
+                {
+                    Toast.makeText(getContext(), "No image  file ", Toast.LENGTH_SHORT).show();
+                }
+                new Retro().getApi().ADD_STAFF_MODEL_CALL(sempidBody,
+                        sphoneBody, snameBody, spinBody, sidBody, filePart).enqueue(new Callback<AddStaffModel>() {
+                    @Override
+                    public void onResponse(Call<AddStaffModel> call, Response<AddStaffModel> response) {
+                        addStaffModel = response.body();
+                        if (addStaffModel.getStatus().equalsIgnoreCase("success")) {
+                            Snackbar.make(root, "Staff Added Sucessfully", BaseTransientBottomBar.LENGTH_LONG).show();
+                        } else {
+                            Snackbar.make(root, "Something went wrong. Try Again Later", BaseTransientBottomBar.LENGTH_LONG).show();
 
-                       }
-
-
-
-
-                   }
-
-                   @Override
-                   public void onFailure(Call<AddStaffModel> call, Throwable t) {
-                       Snackbar.make(root,"ADD STAFF API FAILURE : CHECK INTERNET SEVICES \n"+t, BaseTransientBottomBar.LENGTH_LONG).show();
-
-                   }
-               });
+                        }
 
 
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddStaffModel> call, Throwable t) {
+                        Snackbar.make(root, "ADD STAFF API FAILURE : CHECK INTERNET SEVICES \n" + t, BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    }
+                });
 
 
-           }else
-           {
-               Toast.makeText(getContext(), "Fill All details", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Fill All details", Toast.LENGTH_SHORT).show();
 
-           }
+            }
         });
 
 
@@ -217,6 +219,7 @@ public class AddStaffFragment extends Fragment implements IOnBackPressed {
                 String picturePath = c.getString(columnIndex);
                 c.close();
                 imgFile = new File(picturePath);
+                isPhototaken = true;
 
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.e("path of image from gallery......******************.........", picturePath + "");
