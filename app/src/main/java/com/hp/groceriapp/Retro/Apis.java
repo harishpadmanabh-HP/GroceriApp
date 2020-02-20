@@ -40,12 +40,12 @@ public interface Apis {
    @Multipart
    @POST("add_product.php")
    Call<AddproductModel> ADDPRODUCT_MODEL_CALL(
-                                               @Part("product_name") String product_name,
-                                               @Part("quantity") String quantity,
-                                               @Part("brand") String brand,
-                                               @Part("price") String price,
-                                               @Part("rack_no") String rack_no,
-                                               @Part("id") String id,
+                                               @Part("product_name") RequestBody product_name,
+                                               @Part("quantity") RequestBody quantity,
+                                               @Part("brand") RequestBody brand,
+                                               @Part("price") RequestBody price,
+                                               @Part("rack_no") RequestBody rack_no,
+                                               @Part("id") RequestBody id,
                                                @Part MultipartBody.Part file);
    @GET("staff_view.php?")
    Call<StaffsListModel>STAFFS_LIST_MODEL_CALL(@Query("id") String id);

@@ -47,6 +47,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import dmax.dialog.SpotsDialog;
 import okhttp3.MediaType;
@@ -80,7 +81,6 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
     private AlertDialog pd;
 
 
-
     private static final String TAG = "CapturePicture";
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private String pictureFilePath;
@@ -100,12 +100,13 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         appPreferences = AppPreferences.getInstance(getActivity(), getResources().getString(R.string.app_name));
-        pd = new SpotsDialog(getActivity(),R.style.CustomAlert);
+        pd = new SpotsDialog(getActivity(), R.style.CustomAlert);
+        Log.e("UID",appPreferences.getData("adminid"));
 
         initView(root);
 
-        if(isPhototaken)
-        mAddProductbtn.setVisibility(View.VISIBLE);
+        if (isPhototaken)
+            mAddProductbtn.setVisibility(View.VISIBLE);
         else mAddProductbtn.setVisibility(View.GONE);
 
 
@@ -135,79 +136,70 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
             //get file to upload
             File file = imgFile;
 
-            if(imgFile == null ||
-                    Objects.requireNonNull(mPdtNameEdt.getText()).toString().equals("")||
-                    Objects.requireNonNull(mPdtBrandEdt.getText()).toString().equals("")||
-                    Objects.requireNonNull(mPdtPriceEdt.getText()).toString().equals("")||
-                    Objects.requireNonNull(mPdtQuantityEdt.getText()).toString().equals("")||
-                    Objects.requireNonNull(mPdtRackNoEdt.getText()).toString().equals(""))
-            {
-                Snackbar.make(view,"All data are necessary to upload product", Snackbar.LENGTH_SHORT)
-                        .show();            }
-            else {
+            if (imgFile == null ||
+                    Objects.requireNonNull(mPdtNameEdt.getText()).toString().equals("") ||
+                    Objects.requireNonNull(mPdtBrandEdt.getText()).toString().equals("") ||
+                    Objects.requireNonNull(mPdtPriceEdt.getText()).toString().equals("") ||
+                    Objects.requireNonNull(mPdtQuantityEdt.getText()).toString().equals("") ||
+                    Objects.requireNonNull(mPdtRackNoEdt.getText()).toString().equals("")) {
+                Snackbar.make(view, "All data are necessary to upload product", Snackbar.LENGTH_SHORT)
+                        .show();
+            } else {
                 pd.show();
 
-               if(file.exists())
-                    {
+                if (file.exists()) {
+
+                    RequestBody pnameBody = RequestBody.create(MediaType.parse("text/plain"), mPdtNameEdt.getText().toString());
+                    RequestBody pquantityBody = RequestBody.create(MediaType.parse("text/plain"), mPdtQuantityEdt.getText().toString());
+                    RequestBody pbrandBody = RequestBody.create(MediaType.parse("text/plain"), mPdtBrandEdt.getText().toString());
+                    RequestBody pPriceBody = RequestBody.create(MediaType.parse("text/plain"), mPdtPriceEdt.getText().toString());
+                    RequestBody pracknoBody = RequestBody.create(MediaType.parse("text/plain"), mPdtRackNoEdt.getText().toString());
+                    RequestBody idBody = RequestBody.create(MediaType.parse("text/plain"), appPreferences.getData("adminid"));
 
 
+                    MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
-                        MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
-
-                        new Retro().getApi().ADDPRODUCT_MODEL_CALL(mPdtNameEdt.getText().toString(),
-                                mPdtQuantityEdt.getText().toString(),
-                                mPdtBrandEdt.getText().toString(),
-                                mPdtPriceEdt.getText().toString(),
-                                mPdtRackNoEdt.getText().toString(),
-                                appPreferences.getData("adminid"),
-                                filePart
-                                ).enqueue(new Callback<AddproductModel>() {
-                            @Override
-                            public void onResponse(Call<AddproductModel> call, Response<AddproductModel> response) {
-                             addproductModel=response.body();
-                             if(addproductModel.getStatus().equalsIgnoreCase("success")) {
-                                 Snackbar.make(root, addproductModel.getStatus(), BaseTransientBottomBar.LENGTH_LONG).show();
-                                 pd.dismiss();
-                             }else
-                             {
-                                 Snackbar.make(root, addproductModel.getStatus(), BaseTransientBottomBar.LENGTH_LONG).show();
-                                 pd.dismiss();
-                             }
-                            }
-
-                            @Override
-                            public void onFailure(Call<AddproductModel> call, Throwable t) {
-
+                    new Retro().getApi().ADDPRODUCT_MODEL_CALL(pnameBody, pquantityBody, pbrandBody, pPriceBody, pracknoBody, idBody, filePart).enqueue(new Callback<AddproductModel>() {
+                        @Override
+                        public void onResponse(Call<AddproductModel> call, Response<AddproductModel> response) {
+                            addproductModel = response.body();
+                            if (addproductModel.getStatus().equalsIgnoreCase("success")) {
+                                Snackbar.make(root, addproductModel.getStatus(), BaseTransientBottomBar.LENGTH_LONG).show();
                                 pd.dismiss();
-                                Toast.makeText(getContext(), "Failed product File upload    "+t, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Snackbar.make(root, addproductModel.getStatus(), BaseTransientBottomBar.LENGTH_LONG).show();
+                                pd.dismiss();
                             }
-                        });
+                        }
 
-                    }else
-                    {
-                        Toast.makeText(getContext(), "file error", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onFailure(Call<AddproductModel> call, Throwable t) {
 
+                            pd.dismiss();
+                            Toast.makeText(getContext(), "Failed product File upload    " + t, Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
+                } else {
+                    Toast.makeText(getContext(), "file error", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
         });
 
 
-
-
         return root;
     }
 
     private void initView(View root) {
-        mPdtNameEdt =  root.findViewById(R.id.pdtNameEdt);
-        mPdtBrandEdt =  root.findViewById(R.id.pdtBrandEdt);
-        mPdtQuantityEdt = root. findViewById(R.id.pdtQuantityEdt);
-        mPdtPriceEdt =  root.findViewById(R.id.pdtPriceEdt);
-        mPdtRackNoEdt = root. findViewById(R.id.pdtRackNoEdt);
-        mAddphotoBtn =  root.findViewById(R.id.addphotoBtn);
-        mAddProductbtn =  root.findViewById(R.id.addProductbtn);
+        mPdtNameEdt = root.findViewById(R.id.pdtNameEdt);
+        mPdtBrandEdt = root.findViewById(R.id.pdtBrandEdt);
+        mPdtQuantityEdt = root.findViewById(R.id.pdtQuantityEdt);
+        mPdtPriceEdt = root.findViewById(R.id.pdtPriceEdt);
+        mPdtRackNoEdt = root.findViewById(R.id.pdtRackNoEdt);
+        mAddphotoBtn = root.findViewById(R.id.addphotoBtn);
+        mAddProductbtn = root.findViewById(R.id.addProductbtn);
     }
 
     @Override
@@ -222,10 +214,11 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
                 }
         }
     }
+
     private void takePicture() {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra( MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
+        cameraIntent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             //startActivityForResult(cameraIntent, REQUEST_PICTURE_CAPTURE);
 
@@ -239,7 +232,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
                 return;
             }
             if (pictureFile != null) {
-                Uri photoURI=   FileProvider.getUriForFile(Objects.requireNonNull(getActivity()),
+                Uri photoURI = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()),
                         BuildConfig.APPLICATION_ID + ".provider", pictureFile);
 
 
@@ -253,7 +246,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String pictureFile = "Groceri" + timeStamp;
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(pictureFile,  ".jpg", storageDir);
+        File image = File.createTempFile(pictureFile, ".jpg", storageDir);
         pictureFilePath = image.getAbsolutePath();
         return image;
     }
@@ -264,17 +257,15 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
 
 
             //File for upload
-            imgFile = new  File(pictureFilePath);
-            if(imgFile.exists())
-            {
+            imgFile = new File(pictureFilePath);
+            if (imgFile.exists()) {
                 //Setting up Ui Buttons
-                isPhototaken=true;
+                isPhototaken = true;
                 mAddProductbtn.setVisibility(View.VISIBLE);
                 mAddphotoBtn.setVisibility(View.GONE);
                 mAddphotoBtn.setEnabled(false);
                 Toast.makeText(getContext(), "Photo Chosed for upload", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(getContext(), "imgFile not exist", Toast.LENGTH_SHORT).show();
 
             }

@@ -59,7 +59,7 @@ public class StaffsFragment extends Fragment {
         mNoitemimg.setVisibility(View.GONE);
         mNoitemtextview.setVisibility(View.GONE);
         appPreferences = AppPreferences.getInstance(getActivity(), getResources().getString(R.string.app_name));
-        new Retro().getApi().STAFFS_LIST_MODEL_CALL("1").enqueue(new Callback<StaffsListModel>() {
+        new Retro().getApi().STAFFS_LIST_MODEL_CALL(appPreferences.getData("adminid")).enqueue(new Callback<StaffsListModel>() {
             @Override
             public void onResponse(Call<StaffsListModel> call, Response<StaffsListModel> response) {
                 staffsListModel = response.body();
