@@ -49,11 +49,10 @@ public class CustomerLogin extends AppCompatActivity {
                         customerPass.getText().toString()).enqueue(new Callback<Cust_LoginModel>() {
                     @Override
                     public void onResponse(Call<Cust_LoginModel> call, Response<Cust_LoginModel> response) {
-                        Cust_LoginModel cust_loginModel=response.body();
-                        if(cust_loginModel.getStatus().equalsIgnoreCase("success")){
+                        Cust_LoginModel cust_loginModel = response.body();
+                        if (cust_loginModel.getStatus().equalsIgnoreCase("success")) {
 
-                        }else
-                        {
+                        } else {
                             Snackbar.make(proceed, "Wrong Creentials", BaseTransientBottomBar.LENGTH_LONG).show();
 
                         }
@@ -61,6 +60,8 @@ public class CustomerLogin extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Cust_LoginModel> call, Throwable t) {
+                        Snackbar.make(proceed, "Cust_LoginModel API FAILURE :" + t, BaseTransientBottomBar.LENGTH_LONG).show();
+
 
                     }
                 });
