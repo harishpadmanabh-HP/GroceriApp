@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/curves"
+    android:translationZ="30dp"
+    android:padding="10dp"
+    android:layout_margin="15dp"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/singleshopname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop name"
+        android:textSize="22dp"
+        android:textColor="#000"
+        android:fontFamily="@font/monsterregular"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/singleshopowner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop owner"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singleshopemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop email"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singleshopPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop phone"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singleshopadd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop add"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+
+</LinearLayout>

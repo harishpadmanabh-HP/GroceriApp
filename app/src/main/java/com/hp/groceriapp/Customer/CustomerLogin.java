@@ -36,6 +36,13 @@ public class CustomerLogin extends AppCompatActivity {
         initView();
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
+        //...........dummy cred
+        customerPhn.setText("7012069385");
+        customerPass.setText("qwerty");
+
+        //............dummy cred ends
+
+
         customerSignupBTN.setOnClickListener(view -> {
             startActivity(new Intent(CustomerLogin.this, CustomerSignup.class));
         });
@@ -51,6 +58,8 @@ public class CustomerLogin extends AppCompatActivity {
                     public void onResponse(Call<Cust_LoginModel> call, Response<Cust_LoginModel> response) {
                         Cust_LoginModel cust_loginModel = response.body();
                         if (cust_loginModel.getStatus().equalsIgnoreCase("success")) {
+
+                            startActivity(new Intent(CustomerLogin.this,CustomerHome.class));
 
                         } else {
                             Snackbar.make(proceed, "Wrong Creentials", BaseTransientBottomBar.LENGTH_LONG).show();
