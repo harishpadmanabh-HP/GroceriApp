@@ -1,6 +1,7 @@
 package com.hp.groceriapp.Customer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -16,6 +17,9 @@ import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +31,18 @@ public class ViewProducts extends AppCompatActivity {
     private ExtendedFloatingActionButton proceedfab;
     private AppPreferences appPreferences;
     String shop_id, customer_id;
+    List<String> pdtid;
+    List<String> pdtQunatity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_products);
         initView();
+
+       // pdtid = new ArrayList<>();
+        //pdtQunatity = new ArrayList<>();
 
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
@@ -61,6 +71,23 @@ public class ViewProducts extends AppCompatActivity {
             public void onFailure(Call<ProductList_Model> call, Throwable t) {
                 Toast.makeText(ViewProducts.this, "API FAIL"+t, Toast.LENGTH_SHORT).show();
             }
+        });
+
+        proceedfab.setOnClickListener(v -> {
+            pdtid=new BuyProduct_Adapter().getPdtid();
+            pdtQunatity=new BuyProduct_Adapter().getPdtQunatity();
+
+            for(String pdt : pdtid)
+            {
+                Log.e("PDT ID",pdt);
+            }
+            for(String pdtq : pdtQunatity)
+            {
+                Log.e("PDT ID",pdtq);
+            }
+
+
+
         });
 
 
