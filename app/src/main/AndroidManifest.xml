@@ -22,10 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shrine"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".TestScroll"
-            android:label="@string/title_activity_test_scroll"
-            android:theme="@style/Theme.Shrine.NoActionBar"></activity>
         <activity android:name=".Customer.ViewProducts" />
         <activity android:name=".Customer.CustomerHome" />
         <activity android:name=".Customer.CustomerSignup" />

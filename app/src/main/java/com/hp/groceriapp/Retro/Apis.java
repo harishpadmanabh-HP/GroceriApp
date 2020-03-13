@@ -16,6 +16,7 @@ import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
 import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
+import com.hp.groceriapp.Staff.Models.Staff_Login_Model;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -100,5 +101,8 @@ public interface Apis {
    @POST("order_product.php")
    Call<OrderResponse_Model> orderProducts(@Body RequestBody requestBody);
 
+   @GET("stafflogin_action.php?")
+   Call<Staff_Login_Model> staffLogin(@Query("emp_id") String emp_id,
+                                      @Query("pin") String pin);
 
 }

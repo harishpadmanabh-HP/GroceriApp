@@ -17,6 +17,7 @@ import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.Customer.CustomerLogin;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Shopowner.ShopOwnerSignUp;
+import com.hp.groceriapp.Staff.OnboardActivity;
 
 public class SelectUser extends AppCompatActivity {
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
@@ -94,7 +95,7 @@ public class SelectUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appPreferences.saveData("usercategory","staff");
-                // TODO intent staff signup
+                startActivity(new Intent(SelectUser.this, OnboardActivity.class));
 
 
             }

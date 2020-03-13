@@ -1,6 +1,7 @@
 package com.hp.groceriapp.Customer.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +99,8 @@ public class BuyProduct_Adapter extends RecyclerView.Adapter<BuyProduct_Adapter.
 
             pdtid.add(id);
             pdtQunatity.add(qty);
+            holder.productName.setTextColor(Color.GREEN);
+            holder.productName.setText(holder.productName.getText().toString()+"\n"+qty+" nos");
 
             Toast.makeText(context, ""+holder.quantity.getText().toString(), Toast.LENGTH_SHORT).show();
         });
