@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.Customer.Adapters.BuyProduct_Adapter;
 import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
@@ -28,21 +30,24 @@ public class ViewProducts extends AppCompatActivity {
 
     private SearchView search;
     private RecyclerView pdtRv;
-    private ExtendedFloatingActionButton proceedfab;
+    private FloatingActionButton proceedfab;
     private AppPreferences appPreferences;
     String shop_id, customer_id;
-    List<String> pdtid;
-    List<String> pdtQunatity;
+    ArrayList<String> pdtid;
+    ArrayList<String> pdtQunatity;
+    BottomAppBar bottomAppBar;
+
+    BuyProduct_Adapter buyProduct_adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_products);
+        setContentView(R.layout.sparebuypdts);
         initView();
 
-       // pdtid = new ArrayList<>();
-        //pdtQunatity = new ArrayList<>();
+        pdtid = new ArrayList<>();
+        pdtQunatity = new ArrayList<>();
 
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
@@ -58,7 +63,8 @@ public class ViewProducts extends AppCompatActivity {
                     StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
 
                     pdtRv.setLayoutManager(staggeredGridLayoutManager);
-                    pdtRv.setAdapter(new BuyProduct_Adapter(productList_model,getApplicationContext()));
+                    buyProduct_adapter=new BuyProduct_Adapter(productList_model,getApplicationContext(),pdtid,pdtQunatity);
+                    pdtRv.setAdapter(buyProduct_adapter);
 
                 } else {
                     Toast.makeText(getApplicationContext(), "No products Found", Toast.LENGTH_SHORT).show();
@@ -74,8 +80,13 @@ public class ViewProducts extends AppCompatActivity {
         });
 
         proceedfab.setOnClickListener(v -> {
-            pdtid=new BuyProduct_Adapter().getPdtid();
-            pdtQunatity=new BuyProduct_Adapter().getPdtQunatity();
+            pdtid=buyProduct_adapter.getPdtid();
+            pdtQunatity=buyProduct_adapter.getPdtQunatity();
+
+            Log.e("PDT SIZE", String.valueOf(pdtid.size()));
+            Log.e("PDT Qun Size", String.valueOf(pdtQunatity.size()));
+
+
 
             for(String pdt : pdtid)
             {
@@ -83,7 +94,7 @@ public class ViewProducts extends AppCompatActivity {
             }
             for(String pdtq : pdtQunatity)
             {
-                Log.e("PDT ID",pdtq);
+                Log.e("PDT quantity",pdtq);
             }
 
 
@@ -94,8 +105,9 @@ public class ViewProducts extends AppCompatActivity {
     }
 
     private void initView() {
-        search = findViewById(R.id.search);
+      //  search = findViewById(R.id.search);
         pdtRv = findViewById(R.id.pdtRv);
         proceedfab = findViewById(R.id.proceedfab);
+        bottomAppBar=findViewById(R.id.bottomAppBar);
     }
 }

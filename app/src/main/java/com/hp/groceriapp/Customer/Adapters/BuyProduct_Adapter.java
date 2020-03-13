@@ -31,17 +31,11 @@ public class BuyProduct_Adapter extends RecyclerView.Adapter<BuyProduct_Adapter.
     ArrayList<String> pdtQunatity;
 
 
-    public BuyProduct_Adapter(ProductList_Model productList_model, Context context) {
+    public BuyProduct_Adapter(ProductList_Model productList_model, Context context, ArrayList<String> pdtid, ArrayList<String> pdtQunatity) {
         this.productList_model = productList_model;
         this.context = context;
-
-    }
-
-    public BuyProduct_Adapter() {
-       // pdtid = new ArrayList<>();
-      //  pdtQunatity = new ArrayList<>();
-        //pdtid.clear();
-        // pdtQunatity.clear();
+        this.pdtid = pdtid;
+        this.pdtQunatity = pdtQunatity;
     }
 
     @NonNull
@@ -97,8 +91,6 @@ public class BuyProduct_Adapter extends RecyclerView.Adapter<BuyProduct_Adapter.
 
 
         holder.add.setOnClickListener(v -> {
-            pdtid = new ArrayList<>();
-            pdtQunatity =new ArrayList<>();
 
 
             String id=productList_model.getProduct_Details().get(position).getProduct_id();
@@ -118,10 +110,10 @@ public class BuyProduct_Adapter extends RecyclerView.Adapter<BuyProduct_Adapter.
 
     }
 
-    public List<String> getPdtid(){
+    public ArrayList<String> getPdtid(){
         return pdtid;
     }
-    public List<String> getPdtQunatity(){
+    public ArrayList<String> getPdtQunatity(){
         return pdtQunatity;
     }
 

@@ -18,7 +18,6 @@
     </style>
 
 
-
     <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorAccent</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
@@ -58,6 +57,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
     </style>
+
     <style name="CustomAlert" parent="android:Theme.DeviceDefault.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Loading…</item>

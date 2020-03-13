@@ -44,26 +44,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:background="#966B79"
-        android:queryHint="Search your products"
-        android:searchIcon="@drawable/ic_search_black_24dp"
-        android:tooltipText="Search"
-        app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
-        app:layout_constraintStart_toStartOf="@+id/guideline14"
-        app:layout_constraintTop_toTopOf="@+id/guideline13" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.17099863" />
+        app:layout_constraintGuide_percent="0.09" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pdtRv"
@@ -74,18 +60,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/proceedfab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Order Products"
-        android:text="Procced to buy"
-        android:textColor="#fff"
-        app:icon="@drawable/ic_done_black_24dp"
-        app:iconTint="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
