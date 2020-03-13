@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/product_list_curve"
+    android:orientation="vertical"
+    android:translationZ="40dp">
+
+    <ImageView
+        android:id="@+id/productimageview"
+
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/product_list_curve"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/monsterbold"
+        android:text="Product name"
+        android:textColor="#000"
+        android:textSize="25dp"
+        android:translationZ="10dp" />
+
+    <TextView
+        android:id="@+id/product_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/monsterregular"
+
+        android:text="Product Brand"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:translationZ="10dp" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:elevation="10dp"
+
+        android:fontFamily="@font/monsterregular"
+        android:text="Product Price"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:translationZ="10dp" />
+
+    <include
+        layout="@layout/quantitychooser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="5dp"
+
+        android:id="@+id/btnLayout"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="CLEAR"
+            android:textSize="15dp"
+            android:layout_margin="2dp"
+            android:textColor="#fff"
+            android:layout_weight="1"
+            android:backgroundTint="#FF1100"/>
+        <Button
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="ADD"
+            android:layout_margin="2dp"
+            android:textSize="15dp"
+
+            android:textColor="#fff"
+
+            android:layout_weight="1"
+            android:background="#87EC11"/>
+
+      </LinearLayout>
+
+
+</LinearLayout>

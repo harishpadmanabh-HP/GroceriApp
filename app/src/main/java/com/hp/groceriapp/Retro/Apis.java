@@ -5,6 +5,7 @@ package com.hp.groceriapp.Retro;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_LoginModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
+import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ShopListModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
@@ -90,5 +91,8 @@ public interface Apis {
 
    @GET("shop_list.php")
    Call<ShopListModel>SHOP_LIST_MODEL_CALL();
+
+   @GET("view_product.php?")
+   Call<ProductList_Model> customerViewProducts(@Query("adminid") String adminid);
 
 }

@@ -59,6 +59,7 @@ public class CustomerLogin extends AppCompatActivity {
                         Cust_LoginModel cust_loginModel = response.body();
                         if (cust_loginModel.getStatus().equalsIgnoreCase("success")) {
 
+                            appPreferences.saveData("cutomer_id",cust_loginModel.getUser_data().getCustomer_id());
                             startActivity(new Intent(CustomerLogin.this,CustomerHome.class));
 
                         } else {
