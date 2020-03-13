@@ -5,6 +5,7 @@ package com.hp.groceriapp.Retro;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_LoginModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
+import com.hp.groceriapp.Customer.CustomerModels.OrderResponse_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ShopListModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
@@ -19,6 +20,7 @@ import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -94,5 +96,9 @@ public interface Apis {
 
    @GET("view_product.php?")
    Call<ProductList_Model> customerViewProducts(@Query("adminid") String adminid);
+
+   @POST("order_product.php")
+   Call<OrderResponse_Model> orderProducts(@Body RequestBody requestBody);
+
 
 }
