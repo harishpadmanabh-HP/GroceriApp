@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
@@ -42,6 +43,7 @@ public class SigninFragment extends Fragment {
     private MaterialButton nextButton;
     Login_model login_model;
     private AppPreferences appPreferences;
+    private String device_token;
 
 
     public SigninFragment() {
@@ -55,6 +57,7 @@ public class SigninFragment extends Fragment {
         // Inflate the layout for this fragment
         View root= inflater.inflate(R.layout.fragment_signin, container, false);
         appPreferences = AppPreferences.getInstance(getActivity(), getResources().getString(R.string.app_name));
+        device_token= FirebaseInstanceId.getInstance().getToken();
 
   initView(root);
 
@@ -78,7 +81,7 @@ public class SigninFragment extends Fragment {
           }
           else{
           Retro retro=new Retro();
-          retro.getApi().LOGIN_MODEL_CALL(emailEdt.getText().toString(),passwordEditText.getText().toString()).enqueue(new Callback<Login_model>() {
+          retro.getApi().LOGIN_MODEL_CALL(emailEdt.getText().toString(),passwordEditText.getText().toString(),device_token).enqueue(new Callback<Login_model>() {
               @Override
               public void onResponse(Call<Login_model> call, Response<Login_model> response) {
                   login_model=response.body();

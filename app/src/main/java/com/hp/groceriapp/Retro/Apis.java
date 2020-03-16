@@ -7,6 +7,7 @@ import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
 import com.hp.groceriapp.Customer.CustomerModels.OrderResponse_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
+import com.hp.groceriapp.Customer.CustomerModels.Push_To_Admin_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ShopListModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
@@ -32,7 +33,8 @@ public interface Apis {
 
    @GET("adminlogin_action.php?")
    Call<Login_model>LOGIN_MODEL_CALL(@Query("phone")String phone,
-                                     @Query("password")String password);
+                                     @Query("password")String password,
+                                     @Query("device_token") String device_token);
 
    @GET("adminregs_action.php?")
    Call<Reg_model>REG_MODEL_CALL(@Query("name")String name,
@@ -40,7 +42,8 @@ public interface Apis {
                                  @Query("phone")String phone,
                                  @Query("shop_name")String shop_name,
                                  @Query("building_address")String building_address,
-                                 @Query("password")String password);
+                                 @Query("password")String password,
+                                 @Query("device_token") String device_token);
 
    @GET("view_product.php?")
    Call<ProductlistModel> PRODUCTLIST_MODEL_CALL(@Query("adminid") String id);
@@ -77,7 +80,8 @@ public interface Apis {
    Call<Cust_SignupModel>CUST_SIGNUP_MODEL_CALL(@Query("name") String name,
                                                 @Query("email") String email,
                                                 @Query("phone") String phone,
-                                                @Query("password") String password);
+                                                @Query("password") String password,
+                                                @Query("device_token") String device_token);
 
 
    @GET("customer_view.php?")
@@ -103,6 +107,11 @@ public interface Apis {
 
    @GET("stafflogin_action.php?")
    Call<Staff_Login_Model> staffLogin(@Query("emp_id") String emp_id,
-                                      @Query("pin") String pin);
+                                      @Query("pin") String pin,
+                                      @Query("device_token") String device_token);
+
+   @GET("pushnotification.php?")
+   Call<Push_To_Admin_Model> pushtoAdmin(@Query("id") String id,
+                                         @Query("custmer_id") String custmer_id);
 
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
@@ -24,12 +25,15 @@ public class CustomerSignup extends AppCompatActivity {
     private EditText custPhone;
     private EditText custPass;
     private MaterialButton custSignup;
+    private String device_token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_signup2);
         initView();
+        device_token= FirebaseInstanceId.getInstance().getToken();
+
         custSignup.setOnClickListener(view -> {
             if (    custName.getText().toString().isEmpty() ||
                     custEmail.getText().toString().isEmpty() ||
@@ -40,7 +44,8 @@ public class CustomerSignup extends AppCompatActivity {
                 new Retro().getApi().CUST_SIGNUP_MODEL_CALL(custName.getText().toString(),
                         custEmail.getText().toString(),
                         custPhone.getText().toString(),
-                        custPass.getText().toString()).enqueue(new Callback<Cust_SignupModel>() {
+                        custPass.getText().toString(),
+                        device_token).enqueue(new Callback<Cust_SignupModel>() {
                     @Override
                     public void onResponse(Call<Cust_SignupModel> call, Response<Cust_SignupModel> response) {
                         Cust_SignupModel cust_signupModel=response.body();

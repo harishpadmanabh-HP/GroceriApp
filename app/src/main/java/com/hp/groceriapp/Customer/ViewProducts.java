@@ -19,9 +19,11 @@ import com.hp.groceriapp.Customer.Adapters.BuyProduct_Adapter;
 import com.hp.groceriapp.Customer.CustomerModels.OrderReq_Model;
 import com.hp.groceriapp.Customer.CustomerModels.OrderResponse_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
+import com.hp.groceriapp.Customer.CustomerModels.Push_To_Admin_Model;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -147,6 +149,22 @@ public class ViewProducts extends AppCompatActivity {
                     pdtRv.setLayoutManager(staggeredGridLayoutManager);
                     buyProduct_adapter=new BuyProduct_Adapter(productList_model,getApplicationContext(),pdtid,pdtQunatity);
                     pdtRv.setAdapter(buyProduct_adapter);
+
+
+                    new Retro().getApi().pushtoAdmin(appPreferences.getData("shopid"),
+                            appPreferences.getData("customer_id") ).enqueue(new Callback<Push_To_Admin_Model>() {
+                        @Override
+                        public void onResponse(Call<Push_To_Admin_Model> call, Response<Push_To_Admin_Model> response) {
+                            Push_To_Admin_Model push_to_admin_model=response.body();
+                            Toast.makeText(ViewProducts.this, ""+push_to_admin_model.getResult().getResults().get(0).getError(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Push_To_Admin_Model> call, Throwable t) {
+                            Toast.makeText(ViewProducts.this, "Push fail"+t, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
 
                 }
 

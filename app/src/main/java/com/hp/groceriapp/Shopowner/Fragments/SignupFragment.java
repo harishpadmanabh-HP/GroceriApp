@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.Adapters.TabAdapter;
 import com.hp.groceriapp.R;
@@ -40,6 +41,7 @@ public class SignupFragment extends Fragment {
     private Button signupBtn;
     Reg_model reg_model;
     private AppPreferences appPreferences;
+    String device_token;
 
 
 
@@ -58,6 +60,7 @@ public class SignupFragment extends Fragment {
         initView(root);
         appPreferences = AppPreferences.getInstance(getContext(), getResources().getString(R.string.app_name));
 
+        device_token= FirebaseInstanceId.getInstance().getToken();
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +79,7 @@ public class SignupFragment extends Fragment {
                     Retro retro = new Retro();
                     retro.getApi().REG_MODEL_CALL(nameEdt.getText().toString(),
                             emailEdt.getText().toString(),
-                            phoneEdt.getText().toString(),shopnameEdt.getText().toString(),addEdt.getText().toString(),passEdt.getText().toString()).enqueue(new Callback<Reg_model>() {
+                            phoneEdt.getText().toString(),shopnameEdt.getText().toString(),addEdt.getText().toString(),passEdt.getText().toString(),device_token).enqueue(new Callback<Reg_model>() {
                         @Override
                         public void onResponse(Call<Reg_model> call, Response<Reg_model> response) {
                             reg_model=response.body();
