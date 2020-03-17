@@ -155,9 +155,15 @@ public class ViewProducts extends AppCompatActivity {
                             appPreferences.getData("customer_id") ).enqueue(new Callback<Push_To_Admin_Model>() {
                         @Override
                         public void onResponse(Call<Push_To_Admin_Model> call, Response<Push_To_Admin_Model> response) {
-                            Push_To_Admin_Model push_to_admin_model=response.body();
-                            Toast.makeText(ViewProducts.this, ""+push_to_admin_model.getResult().getResults().get(0).getError(), Toast.LENGTH_SHORT).show();
-                        }
+                           Push_To_Admin_Model push_to_admin_model=response.body();
+                           if(push_to_admin_model.getSuccess()== 1)
+                           {
+                               Toast.makeText(ViewProducts.this, "Notified Successfully", Toast.LENGTH_SHORT).show();
+                           }else
+                           {
+                               Toast.makeText(ViewProducts.this, ""+push_to_admin_model.getResults().get(0).getMessage_id(), Toast.LENGTH_SHORT).show();
+                           }
+                             }
 
                         @Override
                         public void onFailure(Call<Push_To_Admin_Model> call, Throwable t) {
@@ -170,7 +176,7 @@ public class ViewProducts extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<OrderResponse_Model> call, Throwable t) {
-                    Toast.makeText(ViewProducts.this, "Fail "+t, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewProducts.this, "View products api Fail "+t, Toast.LENGTH_SHORT).show();
                 }
             });
 

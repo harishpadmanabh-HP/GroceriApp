@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -14,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hp.groceriapp.R;
+import com.hp.groceriapp.Retro.Retro;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +25,8 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class Firbasemessagingservice extends FirebaseMessagingService {
+    private String customer_id;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -101,12 +105,16 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
         // JSONObject json = new JSONObject(remoteMessage.getData().toString());
         //  String d=json.getString("msg");
 
-
-//        Map<String, String> params = remoteMessage.getData();
-//        JSONObject object = new JSONObject(params);
-//        JSONObject Customer_details = object.getJSONObject("Customer_details");
-//        String name= Customer_details.getString("name");
-//        Log.e("nameeeeeee",name);
+try {
+    Map<String, String> params = remoteMessage.getData();
+    JSONObject object = new JSONObject(params);
+    //JSONObject Customer_details = object.getJSONObject("Customer_details");
+     customer_id = object.getString("Customer_id");
+    Log.e("Customer_id", customer_id);
+}catch (Exception e)
+{
+    Log.e("ERROR IN PUSH", String.valueOf(e));
+}
 
 
 
@@ -131,11 +139,12 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
 //        PendingIntent approvepending =
 //                astackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.ic_launcher_foreground);
+                R.drawable.groceri);
         notification
-                .setSmallIcon(R.drawable.ic_launcher_background) // can use any other icon
-                .setContentTitle("Order Found from ")
-                .setContentText(remoteMessage.getData().toString())
+                .setLargeIcon(icon)
+                .setSmallIcon(R.drawable.groceridribbble) // can use any other icon
+                .setContentTitle("Order Found ")
+                .setContentText("Customer id = "+customer_id)
                 //setContentText("ORder List")
                 //.addAction(R.drawable.ic_launcher_background,"qwertyuio")
                // .setContentIntent(resultPendingIntent)
