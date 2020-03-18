@@ -1,4 +1,4 @@
-package com.hp.groceriapp.Adapters;
+package com.hp.groceriapp.Shopowner.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.R;
+import com.hp.groceriapp.Shopowner.Fragments.StaffDetailsFragment;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
+import com.hp.groceriapp.Utils.FragmentSwitcher;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -45,7 +48,19 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffVH> {
         holder.staffname.setText(staffsListModel.getStaff_Details().get(position).getName());
 
         holder.itemView.setOnClickListener(view -> {
+           //store data
             appPreferences.saveData("selectedStaffid",staffsListModel.getStaff_Details().get(position).getStaff_id());
+            appPreferences.saveData("selectedStaffname",staffsListModel.getStaff_Details().get(position).getName());
+            appPreferences.saveData("selectedStaffpin",staffsListModel.getStaff_Details().get(position).getPin());
+            appPreferences.saveData("selectedStaffempid",staffsListModel.getStaff_Details().get(position).getEmp_id());
+            appPreferences.saveData("selectedStaffphoto",staffsListModel.getStaff_Details().get(position).getPhoto());
+            appPreferences.saveData("selectedStaffphone",staffsListModel.getStaff_Details().get(position).getPhone());
+
+            //navigate to staff details fragment
+            new FragmentSwitcher().replaceFragment(new StaffDetailsFragment(), (FragmentActivity) context);
+
+
+
         });
     }
 

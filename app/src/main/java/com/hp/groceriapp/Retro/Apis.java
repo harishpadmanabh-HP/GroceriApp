@@ -11,6 +11,7 @@ import com.hp.groceriapp.Customer.CustomerModels.Push_To_Admin_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ShopListModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
+import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
@@ -113,5 +114,8 @@ public interface Apis {
    @GET("pushnotification.php?")
    Call<Push_To_Admin_Model> pushtoAdmin(@Query("id") String id,
                                          @Query("custmer_id") String custmer_id);
+
+   @GET("free_staff.php?")
+   Call<FreeStaffModel> freestaffs(@Query("id") String id);
 
 }

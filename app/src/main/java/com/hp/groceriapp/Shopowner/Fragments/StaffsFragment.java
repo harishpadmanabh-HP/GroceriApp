@@ -8,20 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.harishpadmanabh.apppreferences.AppPreferences;
-import com.hp.groceriapp.Adapters.StaffAdapter;
+import com.hp.groceriapp.Shopowner.Adapters.StaffAdapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
@@ -65,7 +61,7 @@ public class StaffsFragment extends Fragment {
                 staffsListModel = response.body();
                 if (staffsListModel.getStatus().equalsIgnoreCase("success")) {
                     mStaffRV.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-                    mStaffRV.setAdapter(new StaffAdapter(staffsListModel, getActivity().getApplicationContext()));
+                    mStaffRV.setAdapter(new StaffAdapter(staffsListModel, getActivity()));
 
 
                 } else {
@@ -84,6 +80,7 @@ public class StaffsFragment extends Fragment {
         });
 
         mAddstaffFAB.setOnClickListener(view -> {
+            //navigate to add staff
             new FragmentSwitcher().replaceFragment(new AddStaffFragment(),getActivity());
 
         });

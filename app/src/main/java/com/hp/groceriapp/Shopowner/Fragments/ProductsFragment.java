@@ -4,7 +4,6 @@ package com.hp.groceriapp.Shopowner.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.harishpadmanabh.apppreferences.AppPreferences;
-import com.hp.groceriapp.Adapters.Admin_Productlist_Adapter;
+import com.hp.groceriapp.Shopowner.Adapters.Admin_Productlist_Adapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;

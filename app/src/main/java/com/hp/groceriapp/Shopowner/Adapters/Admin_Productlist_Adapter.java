@@ -1,4 +1,4 @@
-package com.hp.groceriapp.Adapters;
+package com.hp.groceriapp.Shopowner.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

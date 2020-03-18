@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Shopowner.Fragments.SignupFragment">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
    <include layout="@layout/activity_shop_owner_sign_up"/>
+</ScrollView>
 </FrameLayout>

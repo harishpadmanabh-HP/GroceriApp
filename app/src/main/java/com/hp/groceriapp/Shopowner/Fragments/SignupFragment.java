@@ -1,7 +1,6 @@
 package com.hp.groceriapp.Shopowner.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.harishpadmanabh.apppreferences.AppPreferences;
-import com.hp.groceriapp.Adapters.TabAdapter;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
-import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
 
 import retrofit2.Call;

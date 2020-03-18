@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-   android:background="#fff"
+    android:background="#fff"
     android:layout_height="match_parent"
     tools:context=".PreSignup.SelectUser">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="146dp" />
+        app:layout_constraintGuide_begin="76dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -32,7 +32,7 @@
         android:padding="15dp"
         android:text="Let us know who you are ."
         android:textColor="#000"
-        android:textSize="48dp"
+        android:textSize="30dp"
         android:translationZ="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,11 +43,12 @@
         android:id="@+id/shopOwnerImg"
         android:layout_width="126dp"
         android:layout_height="126dp"
+        android:layout_marginTop="32dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:translationZ="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"

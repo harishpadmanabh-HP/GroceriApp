@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Shopowner.Fragments.SigninFragment;
 import com.hp.groceriapp.Shopowner.Fragments.SignupFragment;
-import com.hp.groceriapp.Adapters.TabAdapter;
+import com.hp.groceriapp.Shopowner.Adapters.TabAdapter;
 
 public class ShopOwnerSignUp extends AppCompatActivity {
     private ViewPager mViewPager;

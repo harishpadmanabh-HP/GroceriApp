@@ -2,6 +2,8 @@ package com.hp.groceriapp.FireBase;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -11,11 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
+import com.hp.groceriapp.Shopowner.FreeStaffs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,11 +30,15 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class Firbasemessagingservice extends FirebaseMessagingService {
+
     private String customer_id;
+    private AppPreferences appPreferences;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
+
         // ...
 
         // TODO(developer): Handle FCM messages here.
@@ -39,6 +48,7 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
@@ -120,13 +130,14 @@ try {
 
 
 // Create an Intent for the activity you want to start
-       // Intent resultIntent = new Intent(this, MapsActivity.class);
+        Intent resultIntent = new Intent(this, FreeStaffs.class);
 // Create the TaskStackBuilder and add the intent, which inflates the back stack
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
 // Get the PendingIntent containing the entire back stack
-//        PendingIntent resultPendingIntent =
-//                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
 //intent for accept button
 
@@ -147,7 +158,7 @@ try {
                 .setContentText("Customer id = "+customer_id)
                 //setContentText("ORder List")
                 //.addAction(R.drawable.ic_launcher_background,"qwertyuio")
-               // .setContentIntent(resultPendingIntent)
+                .setContentIntent(resultPendingIntent)
                 .setNumber(3); // this shows a number in the notification dots
 
         NotificationManager notificationManager =
