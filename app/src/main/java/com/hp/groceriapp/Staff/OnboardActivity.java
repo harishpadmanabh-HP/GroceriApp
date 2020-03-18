@@ -3,16 +3,25 @@ package com.hp.groceriapp.Staff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.harishpadmanabh.apppreferences.AppPreferences;
+import com.hp.groceriapp.FireBase.Firebaseidservice;
 import com.hp.groceriapp.R;
+import com.hp.groceriapp.Retro.Retro;
+import com.hp.groceriapp.Staff.Models.Staff_Login_Model;
 import com.hp.groceriapp.Utils.Utils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OnboardActivity extends AppCompatActivity {
 
@@ -21,6 +30,8 @@ public class OnboardActivity extends AppCompatActivity {
     private MaterialButton proceed;
     private AppPreferences appPreferences;
 
+    String device_token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +39,10 @@ public class OnboardActivity extends AppCompatActivity {
         initView();
         View rootView = findViewById(android.R.id.content);
         appPreferences = AppPreferences.getInstance(getApplicationContext(), getResources().getString(R.string.app_name));
-//conecting all TextInputEditText as list
+
+        device_token= FirebaseInstanceId.getInstance().getToken();
+
+        //conecting all TextInputEditText as list
         final List<EditText> EditTexts = Utils.findViewsWithType(
                 rootView, EditText.class);
 
@@ -46,6 +60,26 @@ public class OnboardActivity extends AppCompatActivity {
                 }
             }
             if(noErrors){
+
+                new Retro().getApi().staffLogin(staffId.getText().toString(),
+                        staffPass.getText().toString(),device_token).enqueue(new Callback<Staff_Login_Model>() {
+                    @Override
+                    public void onResponse(Call<Staff_Login_Model> call, Response<Staff_Login_Model> response) {
+                        Staff_Login_Model staff_login_model =response.body();
+                        if(staff_login_model.getStatus().equalsIgnoreCase("success"))
+                        {
+                            Toast.makeText(OnboardActivity.this, "Logged in !", Toast.LENGTH_SHORT).show();
+                        }else
+                        {
+                            Toast.makeText(OnboardActivity.this, ""+staff_login_model.getStatus(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Staff_Login_Model> call, Throwable t) {
+                        Toast.makeText(OnboardActivity.this, "Staff login api failed "+t, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });

@@ -22,7 +22,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shrine"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Shopowner.FreeStaffs"></activity>
+        <activity android:name=".Staff.StaffOrderList">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Shopowner.FreeStaffs" />
         <activity android:name=".Customer.ViewProducts" />
         <activity android:name=".Customer.CustomerHome" />
         <activity android:name=".Customer.CustomerSignup" />
@@ -37,11 +44,7 @@
         <activity
             android:name=".PreSignup.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider

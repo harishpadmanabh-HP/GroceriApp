@@ -2,6 +2,7 @@ package com.hp.groceriapp.Retro;
 
 
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_LoginModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
@@ -14,10 +15,12 @@ import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
+import com.hp.groceriapp.Shopowner.Model.PushtoStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
 import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
+import com.hp.groceriapp.Staff.Models.OrderList_To_Staff_Model;
 import com.hp.groceriapp.Staff.Models.Staff_Login_Model;
 
 import okhttp3.MultipartBody;
@@ -117,5 +120,14 @@ public interface Apis {
 
    @GET("free_staff.php?")
    Call<FreeStaffModel> freestaffs(@Query("id") String id);
+
+   @GET("pushToStaff.php?")
+   Call<PushtoStaffModel> pushToStaff(@Query("id") String id,
+                                      @Query("custmer_id") String custmer_id,
+                                      @Query("staff_id") String Staffid);
+
+   @GET("viewOrderProduct.php?")
+   Call<OrderList_To_Staff_Model> orderListStaff(@Query("id") String id,
+                                                 @Query("custmer_id") String custmer_id);
 
 }

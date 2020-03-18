@@ -21,6 +21,7 @@ import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.FreeStaffs;
+import com.hp.groceriapp.Staff.StaffOrderList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
 
     private String customer_id;
     private AppPreferences appPreferences;
+    private String reciever;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -48,30 +50,18 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Message data payload: " + remoteMessage.getData());
-            Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//            Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
                 scheduleJob();
             } else {
                 // Handle message within 10 seconds
-               // handleNow();
+                // handleNow();
             }
 
         }
 
-        // Check if message contains a notification payload.
-//        if (remoteMessage.getNotification() != null) {
-//            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-//        }
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, remoteMessage.getNotification().getBody())
-//                .setSmallIcon(R.drawable.ic_launcher_background)
-//                .setContentTitle(remoteMessage.getNotification().getBody())
-//                .setContentText(remoteMessage.getNotification().getBody())
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
 
         try {
             issueNotification(remoteMessage);
@@ -83,18 +73,19 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
 
     private void scheduleJob() {
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    void makeNotificationChannel(String id, String name, int importance)
-    {
+    void makeNotificationChannel(String id, String name, int importance) {
         NotificationChannel channel = new NotificationChannel(id, name, importance);
         channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
 
         NotificationManager notificationManager =
-                (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         assert notificationManager != null;
         notificationManager.createNotificationChannel(channel);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     void issueNotification(RemoteMessage remoteMessage) throws JSONException {
 
@@ -109,63 +100,106 @@ public class Firbasemessagingservice extends FirebaseMessagingService {
                 new NotificationCompat.Builder(this, "CHANNEL_1");
         // the second parameter is the channel id.
         // it should be the same as passed to the makeNotificationChannel() method
-        // String questionTitle = .get("questionTitle").toString();
-
-        //String d=object.getString("message");
-        // JSONObject json = new JSONObject(remoteMessage.getData().toString());
-        //  String d=json.getString("msg");
-
-try {
-    Map<String, String> params = remoteMessage.getData();
-    JSONObject object = new JSONObject(params);
-    //JSONObject Customer_details = object.getJSONObject("Customer_details");
-     customer_id = object.getString("Customer_id");
-    Log.e("Customer_id", customer_id);
-}catch (Exception e)
-{
-    Log.e("ERROR IN PUSH", String.valueOf(e));
-}
 
 
+        try {
+            Map<String, String> params = remoteMessage.getData();
+            JSONObject object = new JSONObject(params);
+            //JSONObject Customer_details = object.getJSONObject("Customer_details");
+            customer_id = object.getString("Customer_id");
+            reciever = object.getString("Reciever");
+            Log.e("Customer_id", customer_id);
+            appPreferences.saveData("notify_Customer_id",customer_id);
+            Log.e("Reciever", reciever);
+
+
+            if (reciever.equalsIgnoreCase("Admin")) {
 
 
 // Create an Intent for the activity you want to start
-        Intent resultIntent = new Intent(this, FreeStaffs.class);
+                Intent resultIntent = new Intent(this, FreeStaffs.class);
 // Create the TaskStackBuilder and add the intent, which inflates the back stack
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntentWithParentStack(resultIntent);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addNextIntentWithParentStack(resultIntent);
 // Get the PendingIntent containing the entire back stack
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
 //intent for accept button
 
-        // Create an Intent for the activity you want to start
-     //   Intent aprove = new Intent(this, ApprovalActivity.class);
+                // Create an Intent for the activity you want to start
+                //   Intent aprove = new Intent(this, ApprovalActivity.class);
 // Create the TaskStackBuilder and add the intent, which inflates the back stack
-      ////  TaskStackBuilder astackBuilder = TaskStackBuilder.create(this);
-    //    astackBuilder.addNextIntentWithParentStack(aprove);
+                ////  TaskStackBuilder astackBuilder = TaskStackBuilder.create(this);
+                //    astackBuilder.addNextIntentWithParentStack(aprove);
 // Get the PendingIntent containing the entire back stack
 //        PendingIntent approvepending =
 //                astackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.groceri);
-        notification
-                .setLargeIcon(icon)
-                .setSmallIcon(R.drawable.groceridribbble) // can use any other icon
-                .setContentTitle("Order Found ")
-                .setContentText("Customer id = "+customer_id)
-                //setContentText("ORder List")
-                //.addAction(R.drawable.ic_launcher_background,"qwertyuio")
-                .setContentIntent(resultPendingIntent)
-                .setNumber(3); // this shows a number in the notification dots
+                Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                        R.drawable.groceri);
+                notification
+                        .setLargeIcon(icon)
+                        .setSmallIcon(R.drawable.groceridribbble) // can use any other icon
+                        .setContentTitle("Order Found ")
+                        .setContentText("Customer id = " + customer_id)
+                        //setContentText("ORder List")
+                        //.addAction(R.drawable.ic_launcher_background,"qwertyuio")
+                        .setContentIntent(resultPendingIntent)
+                        .setNumber(3); // this shows a number in the notification dots
 
-        NotificationManager notificationManager =
-                (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        assert notificationManager != null;
-        notificationManager.notify(1, notification.build());
-        // it is better to not use 0 as notification id, so used 1.
+                assert notificationManager != null;
+                notificationManager.notify(1, notification.build());
+
+            } else if (reciever.equalsIgnoreCase("Staff")) {
+
+// Create an Intent for the activity you want to start
+                Intent resultIntent = new Intent(this, StaffOrderList.class);
+// Create the TaskStackBuilder and add the intent, which inflates the back stack
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addNextIntentWithParentStack(resultIntent);
+// Get the PendingIntent containing the entire back stack
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+//intent for accept button
+
+                // Create an Intent for the activity you want to start
+                //   Intent aprove = new Intent(this, ApprovalActivity.class);
+// Create the TaskStackBuilder and add the intent, which inflates the back stack
+                ////  TaskStackBuilder astackBuilder = TaskStackBuilder.create(this);
+                //    astackBuilder.addNextIntentWithParentStack(aprove);
+// Get the PendingIntent containing the entire back stack
+//        PendingIntent approvepending =
+//                astackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                        R.drawable.groceri);
+                notification
+                        .setLargeIcon(icon)
+                        .setSmallIcon(R.drawable.groceridribbble) // can use any other icon
+                        .setContentTitle("Order To be delivered ")
+                        .setContentText("Staff push ")
+                        //setContentText("ORder List")
+                        //.addAction(R.drawable.ic_launcher_background,"qwertyuio")
+                        .setContentIntent(resultPendingIntent)
+                        .setNumber(3); // this shows a number in the notification dots
+
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                assert notificationManager != null;
+                notificationManager.notify(1, notification.build());
+
+            }
+
+        } catch (Exception e) {
+            Log.e("ERROR IN PUSH", String.valueOf(e));
+        }
+
+
     }
 }

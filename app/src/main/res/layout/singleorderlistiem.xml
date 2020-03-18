@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/curves"
+    android:translationZ="30dp"
+    android:padding="10dp"
+    android:layout_margin="15dp"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/singlePdtname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product name"
+        android:textSize="22dp"
+        android:textColor="#000"
+        android:fontFamily="@font/monsterregular"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/singlePdtQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singlepdtBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brand"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singlepdtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/singlepdtRack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rack"
+        android:textSize="20dp"
+        android:textColor="#706C6C"
+        android:fontFamily="@font/monsterregular"
+        android:layout_marginStart="15dp"/>
+
+</LinearLayout>

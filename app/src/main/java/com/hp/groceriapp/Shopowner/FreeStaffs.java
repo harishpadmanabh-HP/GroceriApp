@@ -38,7 +38,7 @@ public class FreeStaffs extends AppCompatActivity {
                 {
 
                     freeStaffsRV.setLayoutManager(new GridLayoutManager(FreeStaffs.this,2));
-                    freeStaffsRV.setAdapter(new FreeStaffsAdapter(FreeStaffs.this,freeStaffModel));
+                    freeStaffsRV.setAdapter(new FreeStaffsAdapter(FreeStaffs.this,freeStaffModel,adminID));
                 }else
                 {
                     Toast.makeText(FreeStaffs.this, " No staffs are free .", Toast.LENGTH_SHORT).show();
