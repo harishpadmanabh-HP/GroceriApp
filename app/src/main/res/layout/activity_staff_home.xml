@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Staff.StaffHome">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+       android:id="@+id/staffimage"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="200dp"/>
+
+
+    <TextView
+        android:id="@+id/alertname"
+        android:text="NAme"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:drawableLeft="@drawable/ic_account_box_black_24dp"
+        android:drawablePadding="15dp"
+        android:layout_margin="15dp"
+        android:fontFamily="@font/monsterbold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/alertphone"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:drawablePadding="15dp"
+        android:text="Phone"
+        android:textSize="25dp"
+        android:textColor="#000"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/monsterregular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/alertpin"
+        android:drawableLeft="@drawable/ic_fiber_pin_black_24dp"
+        android:drawablePadding="15dp"
+        android:text="PIN"
+        android:textSize="25dp"
+        android:textColor="#000"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/monsterregular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/alertempid"
+        android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
+        android:drawablePadding="15dp"
+        android:text="EMP ID"
+        android:textSize="25dp"
+        android:textColor="#000"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/monsterregular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You will be notified when your order is assigned. "
+        android:textSize="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/vidaloka"/>
+
+
+</LinearLayout>

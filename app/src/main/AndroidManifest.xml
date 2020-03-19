@@ -22,9 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shrine"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Staff.StaffOrderList">
-
-        </activity>
+        <activity android:name=".Staff.StaffHome"></activity>
+        <activity android:name=".Staff.StaffOrderList"></activity>
         <activity android:name=".Shopowner.FreeStaffs" />
         <activity android:name=".Customer.ViewProducts" />
         <activity android:name=".Customer.CustomerHome" />

@@ -37,8 +37,8 @@ public class CustomerLogin extends AppCompatActivity {
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
         //...........dummy cred
-        customerPhn.setText("7012069385");
-        customerPass.setText("qwerty");
+      //  customerPhn.setText("7012069385");
+        //customerPass.setText("qwerty");
 
         //............dummy cred ends
 

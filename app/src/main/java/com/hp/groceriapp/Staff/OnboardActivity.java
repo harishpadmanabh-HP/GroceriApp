@@ -1,5 +1,6 @@
 package com.hp.groceriapp.Staff;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -71,7 +72,11 @@ public class OnboardActivity extends AppCompatActivity {
                             Toast.makeText(OnboardActivity.this, "Logged in !", Toast.LENGTH_SHORT).show();
 
                             String staffid=staff_login_model.getUser_data().getStaff_id();
+                            String staffadmin=staff_login_model.getUser_data().getId();
+
                             appPreferences.saveData("staff_id",staffid);
+                            appPreferences.saveData("staff_admin",staffadmin);
+                            startActivity(new Intent(OnboardActivity.this,StaffHome.class));
                         }else
                         {
                             Toast.makeText(OnboardActivity.this, ""+staff_login_model.getStatus(), Toast.LENGTH_SHORT).show();

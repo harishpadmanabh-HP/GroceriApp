@@ -23,6 +23,7 @@ import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 import com.hp.groceriapp.Staff.Models.AcceptOrderModel;
 import com.hp.groceriapp.Staff.Models.DeliverModel;
 import com.hp.groceriapp.Staff.Models.OrderList_To_Staff_Model;
+import com.hp.groceriapp.Staff.Models.StaffDetailsModel;
 import com.hp.groceriapp.Staff.Models.Staff_Login_Model;
 
 import okhttp3.MultipartBody;
@@ -140,5 +141,9 @@ public interface Apis {
    Call<DeliverModel> deliverOrder(@Query("staff_id") String staff_id,
                                    @Query("id") String id,
                                    @Query("customer_id") String customer_id);
+
+   @GET("view_staff.php?")
+   Call<StaffDetailsModel> staffDetailsCall(@Query("id") String id,
+                                            @Query("staff_id") String staff_id);
 
 }
