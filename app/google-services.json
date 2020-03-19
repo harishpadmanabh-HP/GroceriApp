@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "183170425329",
+    "firebase_url": "https://groceriapp-b8022.firebaseio.com",
+    "project_id": "groceriapp-b8022",
+    "storage_bucket": "groceriapp-b8022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183170425329:android:60d455cab89a3c63f56450",
+        "android_client_info": {
+          "package_name": "com.hp.groceriapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183170425329-dv9nhpn10hgdhd8rfhpp4m7fasdpnthj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hp.groceriapp",
+            "certificate_hash": "0a990ca4716ef6c3fd0e64f50b13f45413cd28ed"
+          }
+        },
+        {
+          "client_id": "183170425329-i0iv12k73ku915ecq2kjof7dc70j3gcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDT-_1M7Zg_9lg90FzzIGHEuxVjlEkPgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183170425329-i0iv12k73ku915ecq2kjof7dc70j3gcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
