@@ -2,6 +2,7 @@ package com.hp.groceriapp.Staff;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Staff.Adapters.OrderAdpater;
+import com.hp.groceriapp.Staff.Models.AcceptOrderModel;
+import com.hp.groceriapp.Staff.Models.DeliverModel;
 import com.hp.groceriapp.Staff.Models.OrderList_To_Staff_Model;
 
 import retrofit2.Call;
@@ -26,9 +29,9 @@ public class StaffOrderList extends AppCompatActivity {
     private TextView custPhone;
     private TextView custEmail;
     private RecyclerView orderListRV;
-    private ExtendedFloatingActionButton accpetFAB;
+    private ExtendedFloatingActionButton accpetFAB,deliverFAB;
     private AppPreferences appPreferences;
-    String adminid,customer_id;
+    String adminid,customer_id,staff_id;
 
 
     @Override
@@ -36,13 +39,18 @@ public class StaffOrderList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_order_list);
         initView();
+        deliverFAB.setVisibility(View.GONE);
         appPreferences = AppPreferences.getInstance(getApplicationContext(), getResources().getString(R.string.app_name));
         customer_id=appPreferences.getData("notify_Customer_id");
         adminid=appPreferences.getData("adminid");
+        staff_id=appPreferences.getData("staff_id");
+
         Log.e("ADMIN ID",adminid);
         Log.e("CUSTOMER ID",customer_id);
+        Log.e("STAFF ID",staff_id);
 
-        new Retro().getApi().orderListStaff("1","2").enqueue(new Callback<OrderList_To_Staff_Model>() {
+
+        new Retro().getApi().orderListStaff(adminid,customer_id).enqueue(new Callback<OrderList_To_Staff_Model>() {
             @Override
             public void onResponse(Call<OrderList_To_Staff_Model> call, Response<OrderList_To_Staff_Model> response) {
 
@@ -71,6 +79,61 @@ public class StaffOrderList extends AppCompatActivity {
             }
         });
 
+        accpetFAB.setOnClickListener(v -> {
+
+            new Retro().getApi().acceptOrder(staff_id,adminid).enqueue(new Callback<AcceptOrderModel>() {
+                @Override
+                public void onResponse(Call<AcceptOrderModel> call, Response<AcceptOrderModel> response) {
+                    AcceptOrderModel acceptOrderModel=response.body();
+                    if(acceptOrderModel.getStatus().equalsIgnoreCase("Updated Successfully")){
+
+                        Toast.makeText(StaffOrderList.this, "You accepted this order!!!", Toast.LENGTH_SHORT).show();
+                        accpetFAB.setVisibility(View.GONE);
+                        deliverFAB.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        Toast.makeText(StaffOrderList.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<AcceptOrderModel> call, Throwable t) {
+                    Toast.makeText(StaffOrderList.this, "Accepy api fail "+t, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        });
+
+
+        deliverFAB.setOnClickListener(v -> {
+
+            new Retro().getApi().deliverOrder(staff_id,adminid,customer_id).enqueue(new Callback<DeliverModel>() {
+                @Override
+                public void onResponse(Call<DeliverModel> call, Response<DeliverModel> response) {
+
+                    DeliverModel deliverModel=response.body();
+                    if(deliverModel.getStatus().equalsIgnoreCase("Updated Successfully,Order deleted")){
+                        Toast.makeText(StaffOrderList.this, "You have delivered the order.", Toast.LENGTH_SHORT).show();
+                    }else
+                    {
+                        Toast.makeText(StaffOrderList.this, "Something went wrong . Try again later", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<DeliverModel> call, Throwable t) {
+                    Toast.makeText(StaffOrderList.this, "DeliverModel Api fail +"+t, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+        });
+
 
     }
 
@@ -80,5 +143,7 @@ public class StaffOrderList extends AppCompatActivity {
         custEmail = findViewById(R.id.cust_email);
         orderListRV = findViewById(R.id.orderListRV);
         accpetFAB = findViewById(R.id.accpetFAB);
+        deliverFAB = findViewById(R.id.deliverFAB);
+
     }
 }

@@ -69,6 +69,9 @@ public class OnboardActivity extends AppCompatActivity {
                         if(staff_login_model.getStatus().equalsIgnoreCase("success"))
                         {
                             Toast.makeText(OnboardActivity.this, "Logged in !", Toast.LENGTH_SHORT).show();
+
+                            String staffid=staff_login_model.getUser_data().getStaff_id();
+                            appPreferences.saveData("staff_id",staffid);
                         }else
                         {
                             Toast.makeText(OnboardActivity.this, ""+staff_login_model.getStatus(), Toast.LENGTH_SHORT).show();

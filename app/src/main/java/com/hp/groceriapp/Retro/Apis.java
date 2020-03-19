@@ -20,6 +20,8 @@ import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
 import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
+import com.hp.groceriapp.Staff.Models.AcceptOrderModel;
+import com.hp.groceriapp.Staff.Models.DeliverModel;
 import com.hp.groceriapp.Staff.Models.OrderList_To_Staff_Model;
 import com.hp.groceriapp.Staff.Models.Staff_Login_Model;
 
@@ -128,6 +130,15 @@ public interface Apis {
 
    @GET("viewOrderProduct.php?")
    Call<OrderList_To_Staff_Model> orderListStaff(@Query("id") String id,
-                                                 @Query("custmer_id") String custmer_id);
+                                                 @Query("customer_id") String custmer_id);
+
+   @GET("Staff_accept_order.php?")
+   Call<AcceptOrderModel> acceptOrder(@Query("staff_id") String staff_id,
+                                      @Query("id") String id);
+
+   @GET("delivered.php?")
+   Call<DeliverModel> deliverOrder(@Query("staff_id") String staff_id,
+                                   @Query("id") String id,
+                                   @Query("customer_id") String customer_id);
 
 }

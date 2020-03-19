@@ -27,7 +27,7 @@ public class OrderAdpater extends RecyclerView.Adapter<OrderAdpater.OrderVh> {
     @NonNull
     @Override
     public OrderVh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_staff_list_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.singleorderlistiem, parent, false);
         appPreferences = AppPreferences.getInstance(context, context.getResources().getString(R.string.app_name));
 
         return new OrderVh(view);
