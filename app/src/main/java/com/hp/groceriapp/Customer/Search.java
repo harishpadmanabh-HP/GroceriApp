@@ -2,6 +2,7 @@ package com.hp.groceriapp.Customer;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class Search extends AppCompatActivity {
         shopId = appPreferences.getData("shopid");
         pdtid = new ArrayList<>();
         pdtQunatity = new ArrayList<>();
+        proceedFAB.setVisibility(View.GONE);
 
 
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -70,6 +72,7 @@ public class Search extends AppCompatActivity {
                             searchRV.setLayoutManager(staggeredGridLayoutManager);
                              searchAdapter = new SearchAdapter(getApplicationContext(), cust_searchModel, pdtid, pdtQunatity);
                             searchRV.setAdapter(searchAdapter);
+                            proceedFAB.setVisibility(View.VISIBLE);
 
 
                         } else {
