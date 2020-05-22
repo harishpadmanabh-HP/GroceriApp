@@ -26,7 +26,7 @@ public class Firebaseidservice extends FirebaseInstanceIdService {
         SharedPreferences.Editor editor = sharedpreferencesDeviceid.edit();
 
         editor.putString("DeviceID", refreshedToken);
-        Toast.makeText(getApplicationContext(), ""+refreshedToken, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), ""+refreshedToken, Toast.LENGTH_SHORT).show();
 
         editor.commit();
         // If you want to send messages to this application instance or

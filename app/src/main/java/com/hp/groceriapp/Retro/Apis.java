@@ -4,6 +4,7 @@ package com.hp.groceriapp.Retro;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_LoginModel;
+import com.hp.groceriapp.Customer.CustomerModels.Cust_SearchModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_SignupModel;
 import com.hp.groceriapp.Customer.CustomerModels.Cust_ViewModel;
 import com.hp.groceriapp.Customer.CustomerModels.OrderResponse_Model;
@@ -145,5 +146,9 @@ public interface Apis {
    @GET("view_staff.php?")
    Call<StaffDetailsModel> staffDetailsCall(@Query("id") String id,
                                             @Query("staff_id") String staff_id);
+
+   @GET("product_view_byname.php?")
+   Call<Cust_SearchModel>searchProductsCall(@Query("product_name") String product_name,
+                                            @Query("id") String id);
 
 }

@@ -1,6 +1,5 @@
 package com.hp.groceriapp.Customer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SearchView;
@@ -11,23 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.groceriapp.Customer.Adapters.BuyProduct_Adapter;
+import com.hp.groceriapp.Customer.Adapters.SearchAdapter;
+import com.hp.groceriapp.Customer.CustomerModels.Cust_SearchModel;
 import com.hp.groceriapp.Customer.CustomerModels.OrderReq_Model;
 import com.hp.groceriapp.Customer.CustomerModels.OrderResponse_Model;
-import com.hp.groceriapp.Customer.CustomerModels.ProductList_Model;
 import com.hp.groceriapp.Customer.CustomerModels.Push_To_Admin_Model;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -35,71 +30,75 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ViewProducts extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
-    private SearchView search;
-    private RecyclerView pdtRv;
-    private FloatingActionButton proceedfab;
+    private SearchView searchview;
+    private RecyclerView searchRV;
     private AppPreferences appPreferences;
-    String shop_id, customer_id;
+    private String shopId;
     ArrayList<String> pdtid;
     ArrayList<String> pdtQunatity;
-    BottomAppBar bottomAppBar;
-    ProductList_Model productList_model;
-    BuyProduct_Adapter buyProduct_adapter;
+    Cust_SearchModel cust_searchModel;
+    private ExtendedFloatingActionButton proceedFAB;
     String  json,jsonview;
     RequestBody AccessTokenValue = null,AccessTokenValueView=null;
-
+    private SearchAdapter searchAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sparebuypdts);
+        setContentView(R.layout.activity_search);
         initView();
-
-        bottomAppBar.setNavigationContentDescription("Search Products");
-        bottomAppBar.setNavigationOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(),Search.class));
-        });
-
+        appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
+        shopId = appPreferences.getData("shopid");
         pdtid = new ArrayList<>();
         pdtQunatity = new ArrayList<>();
 
-        appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
-        shop_id = appPreferences.getData("shopid");
-        customer_id = appPreferences.getData("cutomer_id");
-
-        new Retro().getApi().customerViewProducts(shop_id).enqueue(new Callback<ProductList_Model>() {
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onResponse(Call<ProductList_Model> call, Response<ProductList_Model> response) {
-                 productList_model = response.body();
+            public boolean onQueryTextSubmit(String query) {
+                new Retro().getApi().searchProductsCall(query, shopId).enqueue(new Callback<Cust_SearchModel>() {
+                    @Override
+                    public void onResponse(Call<Cust_SearchModel> call, Response<Cust_SearchModel> response) {
+                        cust_searchModel = response.body();
+                        if (cust_searchModel.getStatus().equalsIgnoreCase("success")) {
 
-                if (productList_model.getStatus().equalsIgnoreCase("success")) {
-                    StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+                            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
 
-                    pdtRv.setLayoutManager(staggeredGridLayoutManager);
-                    buyProduct_adapter=new BuyProduct_Adapter(productList_model,getApplicationContext(),pdtid,pdtQunatity);
-                    pdtRv.setAdapter(buyProduct_adapter);
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "No products Found", Toast.LENGTH_SHORT).show();
-                }
+                            searchRV.setLayoutManager(staggeredGridLayoutManager);
+                             searchAdapter = new SearchAdapter(getApplicationContext(), cust_searchModel, pdtid, pdtQunatity);
+                            searchRV.setAdapter(searchAdapter);
 
 
+                        } else {
+                            Toast.makeText(Search.this, "No items found.", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cust_SearchModel> call, Throwable t) {
+                        Toast.makeText(Search.this, "API FAILURE " + t, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                return false;
             }
 
             @Override
-            public void onFailure(Call<ProductList_Model> call, Throwable t) {
-                Toast.makeText(ViewProducts.this, "API FAIL"+t, Toast.LENGTH_SHORT).show();
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 
-        proceedfab.setOnClickListener(v -> {
+        proceedFAB.setOnClickListener(v -> {
 
-            pdtid=buyProduct_adapter.getPdtid();
-            pdtQunatity=buyProduct_adapter.getPdtQunatity();
+            pdtid=searchAdapter.getPdtid();
+            pdtQunatity=searchAdapter.getPdtQunatity();
 
             Log.e("PDT SIZE", String.valueOf(pdtid.size()));
             Log.e("PDT Qun Size", String.valueOf(pdtQunatity.size()));
@@ -146,34 +145,34 @@ public class ViewProducts extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<OrderResponse_Model> call, Response<OrderResponse_Model> response) {
                     OrderResponse_Model orderResponse_model=response.body();
-                    Toast.makeText(ViewProducts.this, "Status : "+orderResponse_model.getStatus()+"price "+orderResponse_model.getPrice(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Search.this, "Status : "+orderResponse_model.getStatus()+"price "+orderResponse_model.getPrice(), Toast.LENGTH_SHORT).show();
 
                     pdtid.clear();
                     pdtQunatity.clear();
                     StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
 
-                    pdtRv.setLayoutManager(staggeredGridLayoutManager);
-                    buyProduct_adapter=new BuyProduct_Adapter(productList_model,getApplicationContext(),pdtid,pdtQunatity);
-                    pdtRv.setAdapter(buyProduct_adapter);
+                    searchRV.setLayoutManager(staggeredGridLayoutManager);
+                    searchAdapter=new SearchAdapter(getApplicationContext(),cust_searchModel,pdtid,pdtQunatity);
+                    searchRV.setAdapter(searchAdapter);
 
 
                     new Retro().getApi().pushtoAdmin(appPreferences.getData("shopid"),
                             appPreferences.getData("customer_id") ).enqueue(new Callback<Push_To_Admin_Model>() {
                         @Override
                         public void onResponse(Call<Push_To_Admin_Model> call, Response<Push_To_Admin_Model> response) {
-                           Push_To_Admin_Model push_to_admin_model=response.body();
-                           if(push_to_admin_model.getSuccess()== 1)
-                           {
-                               Toast.makeText(ViewProducts.this, "Notified Successfully", Toast.LENGTH_SHORT).show();
-                           }else
-                           {
-                               Toast.makeText(ViewProducts.this, ""+push_to_admin_model.getResults().get(0).getMessage_id(), Toast.LENGTH_SHORT).show();
-                           }
-                             }
+                            Push_To_Admin_Model push_to_admin_model=response.body();
+                            if(push_to_admin_model.getSuccess()== 1)
+                            {
+                                Toast.makeText(Search.this, "Notified Successfully", Toast.LENGTH_SHORT).show();
+                            }else
+                            {
+                                Toast.makeText(Search.this, ""+push_to_admin_model.getResults().get(0).getMessage_id(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
                         @Override
                         public void onFailure(Call<Push_To_Admin_Model> call, Throwable t) {
-                            Toast.makeText(ViewProducts.this, "Push fail"+t, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Search.this, "Push fail"+t, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -182,7 +181,7 @@ public class ViewProducts extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<OrderResponse_Model> call, Throwable t) {
-                    Toast.makeText(ViewProducts.this, "View products api Fail "+t, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Search.this, "View products api Fail "+t, Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -190,16 +189,14 @@ public class ViewProducts extends AppCompatActivity {
 
 
 
-        });
 
+        });
 
     }
 
     private void initView() {
-
-      //search = findViewById(R.id.search);
-        pdtRv = findViewById(R.id.pdtRv);
-        proceedfab = findViewById(R.id.proceedfab);
-        bottomAppBar=findViewById(R.id.bottomAppBar);
+        searchview = findViewById(R.id.searchview);
+        searchRV = findViewById(R.id.searchRV);
+        proceedFAB = findViewById(R.id.proceedFAB);
     }
 }
