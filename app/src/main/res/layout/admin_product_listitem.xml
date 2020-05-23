@@ -4,6 +4,7 @@
     android:translationZ="40dp"
     android:background="@drawable/product_list_curve"
     android:layout_margin="12dp"
+    android:id="@+id/pdtLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 

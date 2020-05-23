@@ -87,7 +87,7 @@ public class SigninFragment extends Fragment {
                   login_model=response.body();
 
                 if( Objects.requireNonNull(login_model).getStatus().equals("Success")) {
-                    Toast.makeText(getContext(), login_model.getStatus(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Logged in !!!", Toast.LENGTH_SHORT).show();
 
                   //save data in app preferences
                   appPreferences.saveData("adminid",login_model.getUser_data().getId());
