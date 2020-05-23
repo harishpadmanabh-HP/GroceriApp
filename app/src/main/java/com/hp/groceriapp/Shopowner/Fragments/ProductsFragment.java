@@ -45,6 +45,7 @@ public class ProductsFragment extends Fragment {
     ProductlistModel productlistModel;
     ExtendedFloatingActionButton addProductFab;
     private AlertDialog pd;
+    Admin_Productlist_Adapter admin_productlist_adapter;
 
 
     public ProductsFragment() {
@@ -70,10 +71,9 @@ public class ProductsFragment extends Fragment {
         if (item.getTitle() == "Delete") {
 
 
-
             String context_menu_pid = Admin_Productlist_Adapter.get_pid_forContextMenuClickListener();
 
-            Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
 
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity())
                     .setTitle("Delete Product")
@@ -84,26 +84,26 @@ public class ProductsFragment extends Fragment {
 
                         //showing dots progress dialog
                         pd.setTitle("Deleting");
-                       // pd.setMessage("Please wait");
+                        // pd.setMessage("Please wait");
                         pd.show();
                         //api call to delete
 
-                        Log.e("pdt id for delete",context_menu_pid);
+                        Log.e("pdt id for delete", context_menu_pid);
                         new Retro().getApi().deleteProduct(context_menu_pid).enqueue(new Callback<Delete_Pdt_Model>() {
                             @Override
                             public void onResponse(Call<Delete_Pdt_Model> call, Response<Delete_Pdt_Model> response) {
-                                      Delete_Pdt_Model delete_pdt_model =response.body();
-                                      if(delete_pdt_model.getStatus().equalsIgnoreCase("Deleted Successfully")){
-                                          Toast.makeText(getContext(), "The product has been deleted successfully.", Toast.LENGTH_SHORT).show();
-                                            pd.dismiss();
-                                             dialog.dismiss();
-                                      }else
-                                      {
-                                          pd.dismiss();
-                                          dialog.dismiss();
-                                          Toast.makeText(getContext(), "Oops! Something went wrong. Try again later", Toast.LENGTH_SHORT).show();
-                                      }
-
+                                Delete_Pdt_Model delete_pdt_model = response.body();
+                                if (delete_pdt_model.getStatus().equalsIgnoreCase("Deleted Successfully")) {
+                                   admin_productlist_adapter.notifyDataSetChanged();
+                                    showProductsList();
+                                    Toast.makeText(getContext(), "The product has been deleted successfully.", Toast.LENGTH_SHORT).show();
+                                    pd.dismiss();
+                                    dialog.dismiss();
+                                } else {
+                                    pd.dismiss();
+                                    dialog.dismiss();
+                                    Toast.makeText(getContext(), "Oops! Something went wrong. Try again later", Toast.LENGTH_SHORT).show();
+                                }
 
 
                             }
@@ -111,7 +111,7 @@ public class ProductsFragment extends Fragment {
                             @Override
                             public void onFailure(Call<Delete_Pdt_Model> call, Throwable t) {
                                 pd.dismiss();
-                                Toast.makeText(getContext(), "DELETE API FAILURE  : "+t, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "DELETE API FAILURE  : " + t, Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -130,6 +130,7 @@ public class ProductsFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -141,6 +142,21 @@ public class ProductsFragment extends Fragment {
         pd = new SpotsDialog(getActivity(), R.style.CustomAlert);
 
         noitemImg.setVisibility(View.INVISIBLE);
+
+        showProductsList();
+
+
+        addProductFab.setOnClickListener(view -> {
+            new FragmentSwitcher().replaceFragment(new AddProductFragment(), getActivity());
+
+
+        });
+
+
+        return root;
+    }
+
+    private void showProductsList() {
         String adminid = appPreferences.getData("adminid");
         new Retro().getApi().PRODUCTLIST_MODEL_CALL(adminid).enqueue(new Callback<ProductlistModel>() {
             @Override
@@ -150,8 +166,12 @@ public class ProductsFragment extends Fragment {
 
 
                     productsRV.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-                    productsRV.setAdapter(new Admin_Productlist_Adapter(productlistModel, getActivity().getApplicationContext()));
+
+
+                    admin_productlist_adapter = new Admin_Productlist_Adapter(productlistModel, getActivity().getApplicationContext());
+                    productsRV.setAdapter(admin_productlist_adapter);
                 } else {
+                    productsRV.setVisibility(View.GONE);
                     noitemImg.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "No products found", Toast.LENGTH_SHORT).show();
                 }
@@ -167,14 +187,6 @@ public class ProductsFragment extends Fragment {
             }
         });
 
-        addProductFab.setOnClickListener(view -> {
-            new FragmentSwitcher().replaceFragment(new AddProductFragment(), getActivity());
-
-
-        });
-
-
-        return root;
     }
 
     private void initView(View root) {
@@ -185,5 +197,8 @@ public class ProductsFragment extends Fragment {
 
     }
 
+    private void clearRVAdapter() {
+
+    }
 
 }
