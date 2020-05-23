@@ -73,7 +73,7 @@ public class ProductsFragment extends Fragment {
 
             String context_menu_pid = Admin_Productlist_Adapter.get_pid_forContextMenuClickListener();
 
-            //Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
 
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity())
                     .setTitle("Delete Product")
@@ -197,8 +197,5 @@ public class ProductsFragment extends Fragment {
 
     }
 
-    private void clearRVAdapter() {
-
-    }
 
 }
