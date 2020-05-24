@@ -1,5 +1,6 @@
 package com.hp.groceriapp.Utils;
 
+//handle back press in fragments
 public interface IOnBackPressed {
     /**
      * If you return true the back press will not be taken into account, otherwise the activity will act naturally
