@@ -13,6 +13,7 @@ import com.hp.groceriapp.Customer.CustomerModels.Push_To_Admin_Model;
 import com.hp.groceriapp.Customer.CustomerModels.ShopListModel;
 import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
+import com.hp.groceriapp.Shopowner.Model.Categories_Model;
 import com.hp.groceriapp.Shopowner.Model.Delete_Pdt_Model;
 import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
@@ -154,5 +155,8 @@ public interface Apis {
 
    @GET("delete_product.php?")
    Call<Delete_Pdt_Model>deleteProduct(@Query("product_id") String product_id);
+
+   @GET("view_category.php")
+   Call<Categories_Model>categoriesListCall();
 
 }

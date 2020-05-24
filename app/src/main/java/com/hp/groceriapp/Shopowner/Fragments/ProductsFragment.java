@@ -66,7 +66,11 @@ public class ProductsFragment extends Fragment {
         Log.e("MENU ", item.getTitle().toString());
         if (item.getTitle() == "Edit") {
             String context_menu_pid = Admin_Productlist_Adapter.get_pid_forContextMenuClickListener();
-            Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
+
+            new FragmentSwitcher().replaceFragment(new EditProductFragment(), getActivity());
+
+
         }
         if (item.getTitle() == "Delete") {
 
@@ -94,7 +98,7 @@ public class ProductsFragment extends Fragment {
                             public void onResponse(Call<Delete_Pdt_Model> call, Response<Delete_Pdt_Model> response) {
                                 Delete_Pdt_Model delete_pdt_model = response.body();
                                 if (delete_pdt_model.getStatus().equalsIgnoreCase("Deleted Successfully")) {
-                                   admin_productlist_adapter.notifyDataSetChanged();
+                                    admin_productlist_adapter.notifyDataSetChanged();
                                     showProductsList();
                                     Toast.makeText(getContext(), "The product has been deleted successfully.", Toast.LENGTH_SHORT).show();
                                     pd.dismiss();

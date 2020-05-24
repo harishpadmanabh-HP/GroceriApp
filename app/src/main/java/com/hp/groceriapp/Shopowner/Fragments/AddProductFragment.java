@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,11 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -37,6 +40,7 @@ import com.hp.groceriapp.BuildConfig;
 import com.hp.groceriapp.R;
 import com.hp.groceriapp.Retro.Retro;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
+import com.hp.groceriapp.Shopowner.Model.Categories_Model;
 import com.hp.groceriapp.Utils.FileUtils;
 import com.hp.groceriapp.Utils.IOnBackPressed;
 
@@ -45,6 +49,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -72,6 +77,8 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
     private TextInputEditText mPdtRackNoEdt;
     private MaterialButton mAddphotoBtn;
     private MaterialButton mAddProductbtn;
+    private AppCompatAutoCompleteTextView mCategoriesDropdown;
+    private ArrayList<String> categoriesList;
 
     private static final int REQUEST_WRITE_PERMISSION = 20;
 
@@ -103,6 +110,8 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
         pd = new SpotsDialog(getActivity(), R.style.CustomAlert);
         Log.e("UID",appPreferences.getData("adminid"));
 
+        categoriesList=new ArrayList<>();
+        populateCategories(categoriesList);
         initView(root);
 
         if (isPhototaken)
@@ -192,6 +201,43 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
         return root;
     }
 
+    private void populateCategories(ArrayList<String> categoriesList) {
+
+        new Retro().getApi().categoriesListCall().enqueue(new Callback<Categories_Model>() {
+            @Override
+            public void onResponse(Call<Categories_Model> call, Response<Categories_Model> response) {
+                Categories_Model categories_model =response.body();
+                if(categories_model.getStatus().equalsIgnoreCase("Success")){
+                    
+                    for(int i=0;i<categories_model.getCategory_Details().size();i++)
+                    {
+                        categoriesList.add(categories_model.getCategory_Details().get(i).getCategory_name());
+
+                        ArrayAdapter<String> d_adapter = new ArrayAdapter<String>
+                                (getActivity(),android.R.layout.select_dialog_item,categoriesList);
+                        mCategoriesDropdown.setThreshold(1);//will start working from first character
+                        mCategoriesDropdown.setAdapter(d_adapter);//setting the adapter data into the AutoCompleteTextView
+                        mCategoriesDropdown.setTextColor(Color.BLACK);
+                    }
+                    
+                    
+                }else
+                {
+                    Toast.makeText(getContext(), "Categories cant be fetched", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Categories_Model> call, Throwable t) {
+                Toast.makeText(getContext(), "Categories API FAIL : "+t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
     private void initView(View root) {
         mPdtNameEdt = root.findViewById(R.id.pdtNameEdt);
         mPdtBrandEdt = root.findViewById(R.id.pdtBrandEdt);
@@ -200,6 +246,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
         mPdtRackNoEdt = root.findViewById(R.id.pdtRackNoEdt);
         mAddphotoBtn = root.findViewById(R.id.addphotoBtn);
         mAddProductbtn = root.findViewById(R.id.addProductbtn);
+        mCategoriesDropdown=root.findViewById(R.id.categories);
     }
 
     @Override
