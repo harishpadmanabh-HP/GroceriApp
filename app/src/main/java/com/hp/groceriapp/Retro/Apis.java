@@ -15,6 +15,7 @@ import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Categories_Model;
 import com.hp.groceriapp.Shopowner.Model.Delete_Pdt_Model;
+import com.hp.groceriapp.Shopowner.Model.Delete_Staff_Model;
 import com.hp.groceriapp.Shopowner.Model.Edit_product_Model;
 import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
@@ -192,4 +193,6 @@ public interface Apis {
    Call<ProductList_Model>filterCall(@Query("adminid") String adminid,
                                     @Query("category_name") String category_name);
 
+   @GET("delete_staff.php?")
+   Call<Delete_Staff_Model>deleteStaffCall(@Query("staff_id") String staff_id);
 }

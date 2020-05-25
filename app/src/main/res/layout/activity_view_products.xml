@@ -68,8 +68,6 @@
         android:layout_marginBottom="88dp"
         android:backgroundTint="#8BC34A"
         android:clickable="true"
-        android:tint="#fff"
-        android:background="#fff"
         app:fabSize="mini"
         android:tooltipText="Filter with Categories"
         android:src="@drawable/ic_tune_black_24dp"

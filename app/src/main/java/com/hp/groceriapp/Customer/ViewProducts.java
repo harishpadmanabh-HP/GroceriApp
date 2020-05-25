@@ -155,6 +155,8 @@ public class ViewProducts extends AppCompatActivity {
                     OrderResponse_Model orderResponse_model = response.body();
                     Toast.makeText(ViewProducts.this, "Status : " + orderResponse_model.getStatus() + "price " + orderResponse_model.getPrice(), Toast.LENGTH_SHORT).show();
 
+                    //TODO:check for out of stork and show the customer
+
                     pdtid.clear();
                     pdtQunatity.clear();
                     StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);

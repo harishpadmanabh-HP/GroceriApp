@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="@font/monsterbold"
-        android:text="Go  Groceri  it !"
+        android:text="Get into Big Basket!"
         android:textSize="20dp"
         android:translationZ="30dp"
         app:cornerRadius="12dp"

@@ -1,6 +1,8 @@
 package com.hp.groceriapp.Shopowner.Adapters;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffVH> {
 
     private AppPreferences appPreferences;
-    StaffsListModel staffsListModel;
+   static StaffsListModel staffsListModel;
     Context context;
+    static int pos_for_context;
+
 
     public StaffAdapter(StaffsListModel staffsListModel, Context context) {
         this.staffsListModel = staffsListModel;
@@ -62,6 +66,29 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffVH> {
 
 
         });
+
+        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                Log.e("Admin_Productlist_Adap","onCreateContextMenu called");
+                menu.setHeaderTitle("OPTIONS");
+                menu.add("Edit");
+                menu.add("Delete");
+                set_staffid_forContextMenuClickListener(position);
+            }
+        });
+    }
+    public    void set_staffid_forContextMenuClickListener(int position)
+    {
+
+        pos_for_context=position;
+    }
+    public static String get_staffid_forContextMenuClickListener()
+    {
+
+        String pid_forContextMenuClickListener = staffsListModel.getStaff_Details().get(pos_for_context).getStaff_id();
+        Log.e("Get pid",pid_forContextMenuClickListener);
+        return pid_forContextMenuClickListener;
     }
 
     @Override
