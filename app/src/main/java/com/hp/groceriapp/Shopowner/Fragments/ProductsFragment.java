@@ -66,8 +66,8 @@ public class ProductsFragment extends Fragment {
         Log.e("MENU ", item.getTitle().toString());
         if (item.getTitle() == "Edit") {
             String context_menu_pid = Admin_Productlist_Adapter.get_pid_forContextMenuClickListener();
-           // Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
-
+            Log.e("product for editting ", context_menu_pid);
+            appPreferences.saveData("edit_pdt_id",context_menu_pid);
             new FragmentSwitcher().replaceFragment(new EditProductFragment(), getActivity());
 
 

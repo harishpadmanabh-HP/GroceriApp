@@ -15,6 +15,7 @@ import com.hp.groceriapp.Shopowner.Model.AddStaffModel;
 import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Categories_Model;
 import com.hp.groceriapp.Shopowner.Model.Delete_Pdt_Model;
+import com.hp.groceriapp.Shopowner.Model.Edit_product_Model;
 import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
 import com.hp.groceriapp.Shopowner.Model.ProductlistModel;
@@ -22,6 +23,7 @@ import com.hp.groceriapp.Shopowner.Model.PushtoStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
 import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
+import com.hp.groceriapp.Shopowner.Model.Single_Product_model;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 import com.hp.groceriapp.Staff.Models.AcceptOrderModel;
 import com.hp.groceriapp.Staff.Models.DeliverModel;
@@ -158,5 +160,30 @@ public interface Apis {
 
    @GET("view_category.php")
    Call<Categories_Model>categoriesListCall();
+
+   @Multipart
+   @POST("edit_product.php")
+   Call<Edit_product_Model>editProductsCall(@Part("product_name") RequestBody product_name,
+                                            @Part("product_id") RequestBody product_id,
+                                            @Part("quantity") RequestBody quantity,
+                                            @Part("price") RequestBody price,
+                                            @Part("rack_no") RequestBody rack_no,
+                                            @Part("brand") RequestBody brand,
+                                            @Part MultipartBody.Part file
+                                            );
+   @Multipart
+   @POST("edit_product.php")
+   Call<Edit_product_Model>editProductsCall(@Part("product_name") RequestBody product_name,
+                                            @Part("product_id") RequestBody product_id,
+                                            @Part("quantity") RequestBody quantity,
+                                            @Part("price") RequestBody price,
+                                            @Part("rack_no") RequestBody rack_no,
+                                            @Part("brand") RequestBody brand
+                                            );
+
+
+   @GET("view_single_product.php?")
+   Call<Single_Product_model>singleProdcutCall(@Query("adminid") String adminid,
+                                               @Query("product_id") String product_id);
 
 }
