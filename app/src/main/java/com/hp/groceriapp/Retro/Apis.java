@@ -71,7 +71,9 @@ public interface Apis {
                                                @Part("price") RequestBody price,
                                                @Part("rack_no") RequestBody rack_no,
                                                @Part("id") RequestBody id,
-                                               @Part MultipartBody.Part file);
+                                               @Part MultipartBody.Part file,
+                                               @Part("category_name") RequestBody category_name
+                                               );
    @GET("staff_view.php?")
    Call<StaffsListModel>STAFFS_LIST_MODEL_CALL(@Query("id") String id);
 
@@ -185,5 +187,9 @@ public interface Apis {
    @GET("view_single_product.php?")
    Call<Single_Product_model>singleProdcutCall(@Query("adminid") String adminid,
                                                @Query("product_id") String product_id);
+
+   @GET("view_product_by_category.php?")
+   Call<ProductList_Model>filterCall(@Query("adminid") String adminid,
+                                    @Query("category_name") String category_name);
 
 }

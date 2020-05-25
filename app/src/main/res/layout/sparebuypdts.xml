@@ -26,6 +26,7 @@
         android:fitsSystemWindows="true"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="10dp"
+
         app:navigationIcon="@drawable/ic_search_black_24dp"
         app:navigationContentDescription="Search"
 

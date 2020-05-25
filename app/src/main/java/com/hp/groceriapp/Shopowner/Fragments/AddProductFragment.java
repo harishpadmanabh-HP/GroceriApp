@@ -150,6 +150,7 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
                     Objects.requireNonNull(mPdtBrandEdt.getText()).toString().equals("") ||
                     Objects.requireNonNull(mPdtPriceEdt.getText()).toString().equals("") ||
                     Objects.requireNonNull(mPdtQuantityEdt.getText()).toString().equals("") ||
+                    Objects.requireNonNull(mCategoriesDropdown.getText()).toString().equals("")||
                     Objects.requireNonNull(mPdtRackNoEdt.getText()).toString().equals("")) {
                 Snackbar.make(view, "All data are necessary to upload product", Snackbar.LENGTH_SHORT)
                         .show();
@@ -164,11 +165,12 @@ public class AddProductFragment extends Fragment implements IOnBackPressed {
                     RequestBody pPriceBody = RequestBody.create(MediaType.parse("text/plain"), mPdtPriceEdt.getText().toString());
                     RequestBody pracknoBody = RequestBody.create(MediaType.parse("text/plain"), mPdtRackNoEdt.getText().toString());
                     RequestBody idBody = RequestBody.create(MediaType.parse("text/plain"), appPreferences.getData("adminid"));
+                    RequestBody categoryBody = RequestBody.create(MediaType.parse("text/plain"), mCategoriesDropdown.getText().toString());
 
 
                     MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
-                    new Retro().getApi().ADDPRODUCT_MODEL_CALL(pnameBody, pquantityBody, pbrandBody, pPriceBody, pracknoBody, idBody, filePart).enqueue(new Callback<AddproductModel>() {
+                    new Retro().getApi().ADDPRODUCT_MODEL_CALL(pnameBody, pquantityBody, pbrandBody, pPriceBody, pracknoBody, idBody, filePart,categoryBody).enqueue(new Callback<AddproductModel>() {
                         @Override
                         public void onResponse(Call<AddproductModel> call, Response<AddproductModel> response) {
                             addproductModel = response.body();
