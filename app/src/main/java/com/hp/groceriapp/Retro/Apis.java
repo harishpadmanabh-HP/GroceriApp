@@ -16,6 +16,7 @@ import com.hp.groceriapp.Shopowner.Model.AddproductModel;
 import com.hp.groceriapp.Shopowner.Model.Categories_Model;
 import com.hp.groceriapp.Shopowner.Model.Delete_Pdt_Model;
 import com.hp.groceriapp.Shopowner.Model.Delete_Staff_Model;
+import com.hp.groceriapp.Shopowner.Model.Edit_Staff_Model;
 import com.hp.groceriapp.Shopowner.Model.Edit_product_Model;
 import com.hp.groceriapp.Shopowner.Model.FreeStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Login_model;
@@ -25,6 +26,7 @@ import com.hp.groceriapp.Shopowner.Model.Reg_model;
 import com.hp.groceriapp.Shopowner.Model.Shp_SingleProductModel;
 import com.hp.groceriapp.Shopowner.Model.Shp_ViewStaffModel;
 import com.hp.groceriapp.Shopowner.Model.Single_Product_model;
+import com.hp.groceriapp.Shopowner.Model.Single_Staff_Model;
 import com.hp.groceriapp.Shopowner.Model.StaffsListModel;
 import com.hp.groceriapp.Staff.Models.AcceptOrderModel;
 import com.hp.groceriapp.Staff.Models.DeliverModel;
@@ -195,4 +197,24 @@ public interface Apis {
 
    @GET("delete_staff.php?")
    Call<Delete_Staff_Model>deleteStaffCall(@Query("staff_id") String staff_id);
+
+   @Multipart
+   @POST("staff_edit.php")
+   Call<Edit_Staff_Model>editStaffCall(@Part("name") RequestBody name,
+                                       @Part("phone") RequestBody phone,
+                                       @Part("emp_id") RequestBody emp_id,
+                                       @Part("pin") RequestBody pin,
+                                       @Part("staff_id") RequestBody staff_id);
+   @Multipart
+   @POST("staff_edit.php")
+   Call<Edit_Staff_Model>editStaffCall(@Part("name") RequestBody name,
+                                       @Part("phone") RequestBody phone,
+                                       @Part("emp_id") RequestBody emp_id,
+                                       @Part("pin") RequestBody pin,
+                                       @Part("staff_id") RequestBody staff_id,
+                                       @Part MultipartBody.Part file);
+
+   @GET("view_staff.php?")
+   Call<Single_Staff_Model>singleStaffDetailsCall(@Query("id") String id,
+                                                  @Query("staff_id") String staff_id);
 }

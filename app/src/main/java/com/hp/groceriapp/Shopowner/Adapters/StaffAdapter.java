@@ -52,6 +52,8 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffVH> {
         holder.staffname.setText(staffsListModel.getStaff_Details().get(position).getName());
 
         holder.itemView.setOnClickListener(view -> {
+
+            Log.e("staffid",staffsListModel.getStaff_Details().get(position).getStaff_id());
            //store data
             appPreferences.saveData("selectedStaffid",staffsListModel.getStaff_Details().get(position).getStaff_id());
             appPreferences.saveData("selectedStaffname",staffsListModel.getStaff_Details().get(position).getName());

@@ -58,6 +58,10 @@ public class StaffsFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
        if(item.getTitle()== "Edit")
        {
+           String context_staffid=StaffAdapter.get_staffid_forContextMenuClickListener();
+           appPreferences.saveData("context_staffid",context_staffid);
+           new FragmentSwitcher().replaceFragment(new EditStaffFragment(), getActivity());
+
 
        }
        if(item.getTitle() == "Delete")
